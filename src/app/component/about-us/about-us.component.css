@@ -1,0 +1,25 @@
+
+
+.hero-container{
+    background-image: url('/assets/img/hero-image.png');
+    background-size: cover;
+    background-repeat: no-repeat; 
+    background-position: center; 
+    height: 100vh; 
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+.hero-text{
+    position: absolute;
+    top: 25%; /* Centers vertically */
+  left: 88px;
+  font-size: 80px;
+  color: white;
+
+}
+.hero-container button{
+    position: absolute;
+    top: 75%; 
+  left: 88px;
+}

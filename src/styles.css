@@ -1,1 +1,30 @@
 /* You can add global styles to this file, and also import other style files */
+
+
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: sans-serif;
+}
+.sm-button{
+    padding:10px 20px;
+    font-size: 18px;
+    font-weight: 400; 
+    border-radius: 50px;
+    border: none;
+    color: white;
+    background-color: #EDC410;
+}
+.lg-button{
+    padding:16px 48px;
+    font-size: 24px;
+    font-weight: 400; 
+    border-radius: 50px;
+    border: none;
+    color: white;
+    background-color: #EDC410;
+    z-index: 2;
+}
+li{
+    list-style: none;
+}

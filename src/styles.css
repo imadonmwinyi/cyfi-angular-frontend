@@ -8,23 +8,67 @@ body{
 }
 .sm-button{
     padding:10px 20px;
+    font-size: 14px;
+    font-weight: 400; 
+    border-radius: 8px;
+    /* border: none; */
+    color: black;
+    border: 1.5px solid #EFCC33;
+    background-color: #Fff;
+}
+.sm-button1{
+    padding:10px 20px;
+    font-size: 14px;
+    font-weight: 400; 
+    border-radius: 8px;
+    color: #fff;
+    border: none;
+    background-color: #EFCC33;
+}
+.sm-button2{
+    padding:12px 24px;
     font-size: 18px;
     font-weight: 400; 
-    border-radius: 50px;
+    border-radius: 8px;
+    color: #fff;
     border: none;
-    color: white;
-    background-color: #EDC410;
+    background-color: #EFCC33;
+}
+
+.sm-button1:disabled{
+    padding:10px 20px;
+    font-size: 14px;
+    font-weight: 400; 
+    border-radius: 8px;
+    color: #fff;
+    border: none;
+    background-color: #fbeaa0;
 }
 .lg-button{
     padding:16px 48px;
     font-size: 24px;
     font-weight: 400; 
-    border-radius: 50px;
+    border-radius: 8px;
+    color: #fff;
     border: none;
-    color: white;
-    background-color: #EDC410;
+    /* border: 1.5px solid #fff; */
+    background-color: #EFCC33;
     z-index: 2;
+}
+.button1{
+    padding:10px 20px;
+    font-size: 18px;
+    font-weight: 400; 
+    border-radius: 8px;
+    border: none;
+    color: black;
+    /* background-color: #FD010C; */
 }
 li{
     list-style: none;
 }
+.sm-button:hover{
+    background-color: #EFCC33;
+}
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

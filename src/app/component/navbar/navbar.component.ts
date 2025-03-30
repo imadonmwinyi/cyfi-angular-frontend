@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-navbar',
@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
+
+@Output() scrolltoDiv = new EventEmitter<any>();
+
+
+scrollTo(text:string){
+  this.scrolltoDiv.emit(text);
+}
 }

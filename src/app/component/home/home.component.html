@@ -1,18 +1,19 @@
 
-<app-navbar></app-navbar>
-<div   class="hero-container d-flex flex-column justify-content-center align-items-center text-white">
-    <div class="hero-conntent">
+<app-navbar (scrolltoDiv) ="scrollTo($event)"></app-navbar>
+
+<div   class="hero-container d-flex flex-column justify-content-center align-items-center text-white" id="home">
+    <div class="d-flex flex-column justify-content-center align-items-center">
         <div class="hero-text text-center">
             For Real Life. Real life happens every day.Don't face it alone.
         </div>
-        <button class="lg-button mt-3">Visit Us</button>
+        <button class="sm-button2 mt-3" routerLink="/register">Register For Dew Of Hermon</button>
     </div>
 
 </div>
-<div class="container-fluid px-3 mt-5">
-    <!-- Mandate Section -->
+<div class="container-fluid px-3 mt-5" id="mission">
     <div class="mandate-section text-center mt-5">
-        <h2 class="mandate-title">Our Mission is to Fan Youth <br> into Flame for Christ</h2>
+        <h2 class="mb-2">Our Mission</h2>
+        <h4 class="mandate-title">Fanning Youth into Flame for Christ</h4>
         <div class="row text-center">
             <div class="col-md-4" *ngFor="let item of mission">
                 <div class="card border-0">
@@ -27,44 +28,32 @@
         </div>
     </div>
 <!-- Events Section -->
-<div class="event text-center mt-5">
+<div class="event text-center mt-5" id="event">
     <div class="header">
         <h1>Upcoming CYFI Events</h1>
     </div>
-    <div class="row"> <!-- Add 'g-4' for spacing between columns -->
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 shadow-sm p-3">
-                <img src="/assets/img/event_img.png" class="card-img-top" alt="Event">
-                <div class="card-body">
-                    <h2 class="card-title">Dew of Hermon</h2>
-                    <h3 class="card-text">Theme: Godfidence</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 shadow-sm p-3">
-                <img src="/assets/img/event_img.png" class="card-img-top" alt="Event">
-                <div class="card-body">
-                    <h2 class="card-title">Dew of Hermon</h2>
-                    <h3 class="card-text">Theme: Godfidence</h3>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card border-0 shadow-sm p-3">
-                <img src="/assets/img/event_img.png" class="card-img-top" alt="Event">
-                <div class="card-body">
-                    <h2 class="card-title">Dew of Hermon</h2>
-                    <h3 class="card-text">Theme: Godfidence</h3>
+    <div class="row"> 
+        <div class="col-md-4 mb-4" *ngFor="let item of event">
+            <div class="card border-0 shadow-sm p-3 h-100 d-flex flex-column">
+                <img [src]="item.image" class="card-img-top img-card" alt="Event">
+                <div class="card-body d-flex flex-column align-items-start justify-content-start">
+                    <h4 class="card-title">{{item.program}}</h4>
+                    <h6 class="card-text">{{item.theme}}</h6>
+                    <p class="card-text"> <i class="fas fa-map-marker-alt"></i> {{item.venue}}</p>
+                    <p class="card-text">  <i class="fas fa-calendar-alt"></i> {{item.date}}</p>
+                  <div *ngIf="item.isRegister">
+                    <button class="btn btn-primary" routerLink="/register">{{item.register}}</button>
+                  </div>
+                   
                 </div>
             </div>
         </div>
     </div>
 </div>
-<!-- About Us Section -->
-<div class="container-fluid px-3"> <!-- Full width container -->
+
+<!-- <div class="container-fluid px-3"> 
     <div class="text-center mt-5">
-        <div class="row d-flex justify-content-center"> <!-- Centers the cards -->
+        <div class="row d-flex justify-content-center"> 
             <div class="col-md-6 col-lg-5 d-flex"> 
                 <div class="card border-0 shadow-sm w-100 d-flex flex-column"> 
                     <img src="/assets/img/card-img.png" class="card-img-top" alt="Our Vision">
@@ -89,11 +78,8 @@
             </div>
         </div>
     </div>
-</div>
-
-
-
-
-</div>
-
+</div> -->
 <app-footer></app-footer>  
+</div>
+
+

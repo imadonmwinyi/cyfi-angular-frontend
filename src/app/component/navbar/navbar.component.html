@@ -11,13 +11,13 @@
 
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav d-flex gap-4">
-                <li class="nav-item"><a class="nav-link" routerLink="/">Home</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/about">About</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/mission">Mission</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/event">Event</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/" (click)="scrollTo('home')">Home</a></li>
+                <li class="nav-item"><a class="nav-link" routerLink="/">About</a></li>
+                <li class="nav-item" style="cursor: pointer;"><a class="nav-link" (click)="scrollTo('mission')">Mission</a></li>
+                <li class="nav-item" style="cursor: pointer;"><a class="nav-link" (click)="scrollTo('event')">Event</a></li>
             </ul>
         </div>
-        <button class="sm-button d-none d-lg-block">Visit Us</button>
+        <button class="sm-button d-none d-lg-block" routerLink="/register">DOH REGISTRATION</button>
     </div>
 </nav>
 

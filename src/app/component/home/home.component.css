@@ -36,6 +36,13 @@
   object-fit: cover; 
   border-radius: 10px;
 }
+.img-card{
+  width: 100%;
+  height: 400px;
+}
+.ht{
+  height: 200px;
+}
 
 
   @media screen and (max-width: 768px) {

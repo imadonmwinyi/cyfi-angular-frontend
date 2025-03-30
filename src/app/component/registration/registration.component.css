@@ -1,0 +1,55 @@
+.custom-container {
+    margin: auto; 
+    padding: 20px;
+}
+.mg-80{
+    padding-top: 8rem;
+}
+
+
+.form-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 15px; 
+}
+.form-wrap{
+    max-width: 100%;
+    width: 90%;
+    padding: 1em 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: auto;
+}
+.mat-stepper-horizontal, .mat-stepper-vertical {
+    width: 80% !important; /* Ensures stepper doesn't exceed the screen width */
+  }
+.form-grid2 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 15px; 
+}
+.button-flex{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.lh{
+    line-height: 2.2 !important;
+}
+.mat-step-text-label{
+    font-size: 40px !important;
+}
+.w-40{
+    width: 40%;
+}
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr; /* Stack fields on small screens */
+    }
+    .form-wrap {
+        width: 100%;
+      }
+}

@@ -1,0 +1,92 @@
+<div class="bg-color">
+
+<app-navbar></app-navbar>
+<div class="container-fluid px-3 mg-80">
+<h2 class="text-center mb-4">DEW OF HERMON ONLINE REGISTRATION FORM</h2>
+   <div>
+        <div class="d-flex flex-column align-items-center justify-content-center">
+            <mat-stepper #stepper class="p-3"
+            [orientation]="(stepperOrientation | async)!">
+            <mat-step [stepControl]="personalForm">
+                <ng-template matStepLabel> Personal Information</ng-template>
+                <form [formGroup]="personalForm" class="form-wrap w-700">
+                    <div class="form-grid">
+                        <div>
+                            <label class="form-label">First Name</label>
+                            <input type="text" class="form-control lh" formControlName="firstName" name="name" required />
+                        </div>
+                        <div>
+                            <label class="form-label">Last Name</label>
+                            <input type="text" class="form-control lh" formControlName="lastName" name="name" required />
+                        </div>
+                        
+                        <div>
+                            <label class="form-label">Gender</label>
+                            <select class="form-select lh" formControlName="gender" name="gender" required>
+                                <option value="" disabled selected>Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" class="form-control lh" formControlName="phoneNumber" name="phoneNumber" required />
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Residential Address</label>
+                            <input type="text" class="form-control lh" formControlName="address" name="address" />
+                        </div>
+                    </div>
+                        
+                        <div class="button-flex w-100">
+                            <button [disabled]="!personalForm.valid" class="sm-button1 w-40" mat-button matStepperNext>Next</button>
+                        </div>
+                       
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="churchForm">
+                <ng-template matStepLabel> Church Information</ng-template>
+                <form [formGroup]="churchForm" class="form-wrap w-700">
+                    <div class="form-grid">
+                        <div>
+                            <label class="form-label">Branch Name</label>
+                            <input type="text" class="form-control lh" formControlName="branch" required />
+                        </div>
+                        <div>
+                            <label class="form-label">Fellowship Name</label>
+                            <input type="text" class="form-control lh" formControlName="fellowshipName" required />
+                        </div>
+                        
+                        <div>
+                            <label class="form-label">Church Address</label>
+                            <input type="text" class="form-control lh" formControlName="churchAddress" required />
+                           </div>
+                        <div>
+                            <label class="form-label">Position</label>
+                            <input type="text" class="form-control lh" formControlName="position" required />
+                        </div>
+                    </div>
+                        <div class="mb-4">
+                            <label class="form-label">Camping ?</label>
+                            <select class="form-select lh" formControlName="camping" required>
+                                <option value="" disabled selected>Are You Camping Or Not</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            
+                        </div>
+                        <div class="button-flex w-100">
+                            <button [disabled]="!churchForm.valid" class="sm-button1 w-40" (click)="onSubmit()">Register</button>
+                        </div>
+                        
+                </form>
+            </mat-step>
+            </mat-stepper>
+ 
+        </div>
+    </div>
+    
+    
+    
+</div>
+</div>

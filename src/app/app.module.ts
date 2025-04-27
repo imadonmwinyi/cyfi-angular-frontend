@@ -12,6 +12,7 @@ import { RegistrationComponent } from './component/registration/registration.com
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {StepperOrientation, MatStepperModule} from '@angular/material/stepper';
+import { DohComponent } from './component/doh/doh.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {StepperOrientation, MatStepperModule} from '@angular/material/stepper';
     EventComponent,
     FooterComponent,
     AboutUsComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    DohComponent
   ],
   imports: [
     BrowserModule,

@@ -22,6 +22,7 @@ export class RegistrationComponent {
   stepperOrientation: Observable<StepperOrientation>;
  public personalForm : FormGroup = new FormGroup({});
  public churchForm : FormGroup = new FormGroup({});
+ public parentForm : FormGroup = new FormGroup({});
 constructor(private http: HttpClient, private fb:FormBuilder) {
   const breakpointObserver = inject(BreakpointObserver);
 
@@ -34,14 +35,29 @@ constructor(private http: HttpClient, private fb:FormBuilder) {
   lastName:[null, [Validators.required]],
   gender:[null, [Validators.required]],
   address:[null, [Validators.required]],
+  emailAddress:[null,[Validators.required]],
   phoneNumber:[null, [Validators.required]],
+  workercamping:[null, [Validators.required]],
+  studentcamping:[null, [Validators.required]],
+  member:[null,[Validators.required]]
  })
  this.churchForm = this.fb.group({
   churchAddress:[null, [Validators.required]],
   fellowshipName:[null, [Validators.required]],
   branch:[null, [Validators.required]],
+  district:[null, [Validators.required]],
+  province:[null, [Validators.required]],
+  parish:[null, [Validators.required]],
   position:[null, [Validators.required]],
-  camping:[null, [Validators.required]],
+  cyfiExco:[null, [Validators.required]],
+  ProvExco:[null, [Validators.required]],
+  EkampoExco:[null, [Validators.required]],
+  BranchExco:[null, [Validators.required]],
+ })
+ this.parentForm = this.fb.group({
+  name:[null, [Validators.required]],
+  address:[null, [Validators.required]],
+  phoneNumber:[null, [Validators.required]]
  })
 
 }
@@ -51,15 +67,16 @@ onSubmit(){
   const firstname = this.personalForm.controls['firstName'].value;
   const lastname = this.personalForm.controls['lastName'].value;
   const fullName = `${firstname} ${lastname}`
-  const formParams = new HttpParams().set('entry.1914421654',fullName)
-            .set('entry.824031380', this.personalForm.controls['phoneNumber'].value)
-            .set('entry.702609258',this.personalForm.controls['address'].value)
-            .set('entry.2007379219',this.personalForm.controls['gender'].value)
-            .set('entry.532739705',this.churchForm.controls['branch'].value)
-            .set('entry.913358422',this.churchForm.controls['fellowshipName'].value)
-            .set('entry.1540432355',this.churchForm.controls['position'].value)
-            .set('entry.1288494070',this.churchForm.controls['churchAddress'].value)
-            .set('entry.723775624',this.churchForm.controls['camping'].value)
+  const formParams = new HttpParams().set('entry.1744505793',fullName)
+            .set('entry.500334091', this.personalForm.controls['phoneNumber'].value)
+            .set('entry.214028391',this.personalForm.controls['address'].value)
+            .set('entry.1093710786',this.personalForm.controls['gender'].value)
+            .set('entry.1872856303',this.personalForm.controls['emailAddress'].value)
+            .set('entry.2111701091',this.churchForm.controls['branch'].value)
+            .set('entry.644532487',this.churchForm.controls['fellowshipName'].value)
+            .set('entry.239238515',this.churchForm.controls['position'].value)
+            .set('entry.816168756',this.churchForm.controls['churchAddress'].value)
+            .set('entry.1404956155',this.personalForm.controls['studentcamping'].value)
 
             this.http.post(this.url, formParams, { responseType: 'text' }).subscribe({
               next: () =>{

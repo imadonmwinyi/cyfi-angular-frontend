@@ -14,7 +14,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class RegistrationComponent {
 
-
+  isloading = false;
   formData = { fullName: '', phoneNumber: '', address: '', gender :'', branch:'', fellowshipName:'', position:'',churchAddress:'',camping:'' };
 
   url = "https://docs.google.com/forms/d/e/1FAIpQLSdell5auLDTP1XN8X5JEBl7xSiWsSTjqXG770QEVp10kaDX8w/formResponse"
@@ -47,6 +47,7 @@ constructor(private http: HttpClient, private fb:FormBuilder) {
 }
 
 onSubmit(){
+  this.isloading = true;
   const firstname = this.personalForm.controls['firstName'].value;
   const lastname = this.personalForm.controls['lastName'].value;
   const fullName = `${firstname} ${lastname}`
@@ -61,8 +62,14 @@ onSubmit(){
             .set('entry.723775624',this.churchForm.controls['camping'].value)
 
             this.http.post(this.url, formParams, { responseType: 'text' }).subscribe({
-              next: () => console.log('Form submitted successfully!'),
-              error: (error) => console.error('Error:', error)
+              next: () =>{
+                this.isloading = false;
+                alert('Registration Successful!')
+              },
+              error: (error) => {
+                this.isloading = false;
+                alert('Registration Successful!')
+              }
             });
             this.personalForm.reset();
             this.churchForm.reset();

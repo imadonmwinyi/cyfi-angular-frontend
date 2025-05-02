@@ -17,7 +17,8 @@ export class RegistrationComponent {
   isloading = false;
   formData = { fullName: '', phoneNumber: '', address: '', gender :'', branch:'', fellowshipName:'', position:'',churchAddress:'',camping:'' };
 
-  url = "https://docs.google.com/forms/d/e/1FAIpQLSdell5auLDTP1XN8X5JEBl7xSiWsSTjqXG770QEVp10kaDX8w/formResponse"
+  // url = "https://docs.google.com/forms/d/e/1FAIpQLSdell5auLDTP1XN8X5JEBl7xSiWsSTjqXG770QEVp10kaDX8w/formResponse"
+  url="https://docs.google.com/forms/u/0/d/e/1FAIpQLScmK2XtIn8PVXnnr0GtCzjajiL62m8ZyPNZovwLng_HqRrniA/formResponse"
  
   stepperOrientation: Observable<StepperOrientation>;
  public personalForm : FormGroup = new FormGroup({});
@@ -40,7 +41,9 @@ constructor(private http: HttpClient, private fb:FormBuilder) {
   workerOrStudent:["", [Validators.required]],
   camping:["", [Validators.required]],
   member:["",[Validators.required]],
-  campus:[""]
+  campus:[""],
+  alternatePhoneumber:[""],
+  campusChapter:[""],
  })
  this.churchForm = this.fb.group({
   churchAddress:[null, [Validators.required]],
@@ -54,7 +57,7 @@ constructor(private http: HttpClient, private fb:FormBuilder) {
   provExco:["", [Validators.required]],
   ekampoExco:["", [Validators.required]],
   branchExco:["", [Validators.required]],
-  campusChapter:[""],
+  
  })
  this.parentForm = this.fb.group({
   name:[null, [Validators.required]],
@@ -73,12 +76,27 @@ onSubmit(){
             .set('entry.500334091', this.personalForm.controls['phoneNumber'].value)
             .set('entry.214028391',this.personalForm.controls['address'].value)
             .set('entry.1093710786',this.personalForm.controls['gender'].value)
-            .set('entry.1872856303',this.personalForm.controls['emailAddress'].value)
-            .set('entry.2111701091',this.churchForm.controls['branch'].value)
-            .set('entry.644532487',this.churchForm.controls['fellowshipName'].value)
-            .set('entry.239238515',this.churchForm.controls['position'].value)
-            .set('entry.816168756',this.churchForm.controls['churchAddress'].value)
-            .set('entry.1404956155',this.personalForm.controls['studentcamping'].value)
+           .set('entry.1872856303',this.personalForm.controls['emailAddress'].value)
+           .set('entry.2123079095',this.personalForm.controls['member'].value)
+           .set('entry.1404956155',this.personalForm.controls['workerOrStudent'].value)
+           .set('entry.1996413254', this.personalForm.controls['camping'].value)
+         .set('entry.2139422772',this.personalForm.controls['campus'].value)
+         .set('entry.345614685',this.personalForm.controls['campusChapter'].value)
+            .set('entry.635639441',this.personalForm.controls['alternatePhoneumber'].value)
+           .set('entry.2111701091',this.churchForm.controls['branch'].value)
+           .set('entry.644532487',this.churchForm.controls['fellowshipName'].value)
+           .set('entry.239238515',this.churchForm.controls['position'].value)
+           .set('entry.816168756',this.churchForm.controls['churchAddress'].value)
+           .set('entry.1858067319',this.churchForm.controls['district'].value)
+           .set('entry.1053862537',this.churchForm.controls['province'].value)
+           .set('entry.1243182199',this.churchForm.controls['parish'].value)
+           .set('entry.604717175',this.churchForm.controls['cyfiExco'].value)
+           .set('entry.1286679025',this.churchForm.controls['provExco'].value)
+           .set('entry.1699133960',this.churchForm.controls['ekampoExco'].value)
+           .set('entry.2072925540',this.churchForm.controls['branchExco'].value)
+           .set('entry.2133178291',this.parentForm.controls['name'].value)
+           .set('entry.770434093',this.parentForm.controls['address'].value)
+           .set('entry.1520110905',this.parentForm.controls['phoneNumber'].value)
 
             this.http.post(this.url, formParams, { responseType: 'text' }).subscribe({
               next: () =>{

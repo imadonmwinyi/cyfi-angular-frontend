@@ -33,26 +33,28 @@ constructor(private http: HttpClient, private fb:FormBuilder) {
  this.personalForm = this.fb.group({
   firstName:[null, [Validators.required]],
   lastName:[null, [Validators.required]],
-  gender:[null, [Validators.required]],
+  gender:["", [Validators.required]],
   address:[null, [Validators.required]],
-  emailAddress:[null,[Validators.required]],
+  emailAddress:[null, [Validators.email]],
   phoneNumber:[null, [Validators.required]],
-  workercamping:[null, [Validators.required]],
-  studentcamping:[null, [Validators.required]],
-  member:[null,[Validators.required]]
+  workerOrStudent:["", [Validators.required]],
+  camping:["", [Validators.required]],
+  member:["",[Validators.required]],
+  campus:[""]
  })
  this.churchForm = this.fb.group({
   churchAddress:[null, [Validators.required]],
   fellowshipName:[null, [Validators.required]],
   branch:[null, [Validators.required]],
   district:[null, [Validators.required]],
-  province:[null, [Validators.required]],
+  province:["", [Validators.required]],
   parish:[null, [Validators.required]],
   position:[null, [Validators.required]],
-  cyfiExco:[null, [Validators.required]],
-  ProvExco:[null, [Validators.required]],
-  EkampoExco:[null, [Validators.required]],
-  BranchExco:[null, [Validators.required]],
+  cyfiExco:["", [Validators.required]],
+  provExco:["", [Validators.required]],
+  ekampoExco:["", [Validators.required]],
+  branchExco:["", [Validators.required]],
+  campusChapter:[""],
  })
  this.parentForm = this.fb.group({
   name:[null, [Validators.required]],

@@ -13,11 +13,11 @@
                     <div class="form-grid">
                         <div>
                             <label class="form-label">First Name</label>
-                            <input type="text" class="form-control lh" formControlName="firstName" name="name" required />
+                            <input type="text" class="form-control lh" formControlName="firstName" name="firstName" required />
                         </div>
                         <div>
                             <label class="form-label">Last Name</label>
-                            <input type="text" class="form-control lh" formControlName="lastName" name="name" required />
+                            <input type="text" class="form-control lh" formControlName="lastName" name="lastName" required />
                         </div>
                         
                         <div>
@@ -32,18 +32,57 @@
                             <label class="form-label">Phone Number</label>
                             <input type="text" class="form-control lh" formControlName="phoneNumber" name="phoneNumber" required />
                         </div>
+                        <div>
+                            <label class="form-label">Alternate Phone Number</label>
+                            <input type="text" class="form-control lh" formControlName="alternatePhoneumber" name="alternatePhoneumber" required />
+                        </div>
                         <div class="mb-4">
                             <label class="form-label">Residential Address</label>
                             <input type="text" class="form-control lh" formControlName="address" name="address" />
                         </div>
+                        <div class="mb-4">
+                            <label class="form-label">Email Address</label>
+                            <input type="text" class="form-control lh" formControlName="emailAddress" name="emailAddress" />
+                        </div>
+                        <div>
+                            <label class="form-label">What is your current status?</label>
+                            <select class="form-select lh" formControlName="workerOrStudent" required>
+                                <option value="" disabled selected>Are you a student or a worker?</option>
+                                <option value="worker">Worker</option>
+                                <option value="student">Student</option>
+                            </select>
+                            
+                        </div>
                         <div>
                             <label class="form-label">Camping ?</label>
-                            <select class="form-select lh" formControlName="studentcamping" required>
+                            <select class="form-select lh" formControlName="camping" required>
                                 <option value="" disabled selected>Are You Camping</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
                             
+                        </div>
+                        <div>
+                            <label class="form-label">CACGM Member ?</label>
+                            <select class="form-select lh" formControlName="member" required>
+                                <option value="" disabled selected>Are You a Member of CACGM</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            
+                        </div>
+                        <div>
+                            <label class="form-label">TCF Member ?</label>
+                            <select class="form-select lh" formControlName="campus" required>
+                                <option value="" disabled selected>Are You a Member of any of our Campus Fellowship</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            
+                        </div>
+                        <div>
+                            <label class="form-label">TCF Campus Chapter</label>
+                            <input type="text" class="form-control lh" formControlName="campusChapter" required />
                         </div>
                     </div>
                         
@@ -58,37 +97,110 @@
                 <form [formGroup]="churchForm" class="form-wrap w-700">
                     <div class="form-grid">
                         <div>
+                            <label class="form-label">Province</label>
+                            <select class="form-select lh" formControlName="province" required>
+                                <option value="" disabled selected>Select your Province</option>
+                                <option value="Uwelu">Uwelu</option>
+                                <option value="Omozee">Omozee</option>
+                                <option value="Ihinmwinrhin">Ihinmwinrhin</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="form-label">District</label>
+                            <input type="text" class="form-control lh" formControlName="district" required />
+                        </div>
+                        <div>
+                            <label class="form-label">Parish</label>
+                            <input type="text" class="form-control lh" formControlName="parish" required />
+                        </div>
+                        <div>
                             <label class="form-label">Branch Name</label>
                             <input type="text" class="form-control lh" formControlName="branch" required />
                         </div>
                         <div>
-                            <label class="form-label">Fellowship Name</label>
+                            <label class="form-label">Branch Fellowship Name</label>
                             <input type="text" class="form-control lh" formControlName="fellowshipName" required />
                         </div>
                         
                         <div>
                             <label class="form-label">Church Address</label>
                             <input type="text" class="form-control lh" formControlName="churchAddress" required />
-                           </div>
-                        <div>
-                            <label class="form-label">Position</label>
-                            <input type="text" class="form-control lh" formControlName="position" required />
                         </div>
+                       
+
+
                         <div>
-                            <label class="form-label">Camping ?</label>
-                            <select class="form-select lh" formControlName="camping" required>
-                                <option value="" disabled selected>Are You Camping</option>
+                            <label class="form-label">Cyfi Exco ?</label>
+                            <select class="form-select lh" formControlName="cyfiExco" required>
+                                <option value="" disabled selected>Are You CYFI Exco</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
                             
                         </div>
+                        <div>
+                            <label class="form-label">Province Exco ?</label>
+                            <select class="form-select lh" formControlName="provExco" required>
+                                <option value="" disabled selected>Are You Province Exco</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            
+                        </div>
+                        <div>
+                            <label class="form-label">Ekampo Exco ?</label>
+                            <select class="form-select lh" formControlName="ekampoExco" required>
+                                <option value="" disabled selected>Are You Ekampo Exco</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            
+                        </div>
+                        <div>
+                            <label class="form-label">Branch Exco ?</label>
+                            <select class="form-select lh" formControlName="branchExco" required>
+                                <option value="" disabled selected>Are You Branch Exco</option>
+                                <option value="yes">Yes</option>
+                                <option value="no">No</option>
+                            </select>
+                            
+                        </div>
+                        <div>
+                            <label class="form-label">Position</label>
+                            <input type="text" class="form-control lh" formControlName="position" required />
+                        </div>
                     </div>
 
                     <div class="button-flex w-100">
-                        <button [disabled]="!churchForm.valid" class="sm-button1 w-40" (click)="onSubmit()">Register</button>
+                        <button class="sm-button1 w-40" mat-button matStepperNext>Next</button>
                     </div>
                         
+                </form>
+            </mat-step>
+            <mat-step [stepControl]="parentForm">
+                <ng-template matStepLabel> Parent/Guardian Information</ng-template>
+                <form [formGroup]="parentForm" class="form-wrap w-700">
+                    <div class="form-grid">
+                       
+                        <div>
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control lh" formControlName="name" required />
+                        </div>
+                        <div>
+                            <label class="form-label">Address</label>
+                            <input type="text" class="form-control lh" formControlName="address" required />
+                        </div>
+                        <div>
+                            <label class="form-label">Phone Number</label>
+                            <input type="text" class="form-control lh" formControlName="phoneNumber" required />
+                        </div>
+                       
+
+                 </div>  
+                 
+                 <div class="button-flex w-100">
+                    <button class="sm-button1 w-40" (click)="onSubmit()">Register</button>
+                </div> 
                 </form>
             </mat-step>
             </mat-stepper>
@@ -100,3 +212,4 @@
     
 </div>
 </div>
+<app-spinner [show]="isloading"></app-spinner>

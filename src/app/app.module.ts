@@ -13,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {StepperOrientation, MatStepperModule} from '@angular/material/stepper';
 import { DohComponent } from './component/doh/doh.component';
+import { SpinnerComponent } from './component/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DohComponent } from './component/doh/doh.component';
     FooterComponent,
     AboutUsComponent,
     RegistrationComponent,
-    DohComponent
+    DohComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

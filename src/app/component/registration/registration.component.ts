@@ -13,11 +13,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./registration.component.css'],
 })
 export class RegistrationComponent {
-
+  showTcfCampusChapter = false;
+  churchNameOrAddress:string = 'Church Address';
+  isCacgmMember = true;
+  isStudent = true;
   isloading = false;
   formData = { fullName: '', phoneNumber: '', address: '', gender :'', branch:'', fellowshipName:'', position:'',churchAddress:'',camping:'' };
 
   // url = "https://docs.google.com/forms/d/e/1FAIpQLSdell5auLDTP1XN8X5JEBl7xSiWsSTjqXG770QEVp10kaDX8w/formResponse"
+  //"https://docs.google.com/forms/u/0/d/e/1FAIpQLScmK2XtIn8PVXnnr0GtCzjajiL62m8ZyPNZovwLng_HqRrniA/formResponse"
   url="https://docs.google.com/forms/u/0/d/e/1FAIpQLScmK2XtIn8PVXnnr0GtCzjajiL62m8ZyPNZovwLng_HqRrniA/formResponse"
  
   stepperOrientation: Observable<StepperOrientation>;
@@ -42,8 +46,8 @@ constructor(private http: HttpClient, private fb:FormBuilder) {
   camping:["", [Validators.required]],
   member:["",[Validators.required]],
   campus:[""],
-  alternatePhoneumber:[""],
-  campusChapter:[""],
+  alternatePhoneumber:[null],
+  campusChapter:[null],
  })
  this.churchForm = this.fb.group({
   churchAddress:[null, [Validators.required]],
@@ -66,6 +70,47 @@ constructor(private http: HttpClient, private fb:FormBuilder) {
  })
 
 }
+
+onCampusChange(event: Event) {
+  const selectedValue = (event.target as HTMLSelectElement).value; // Get the selected value from the event
+  console.log(selectedValue);
+  if(selectedValue === 'yes') {
+     this.showTcfCampusChapter = true;
+  }else{
+    this.showTcfCampusChapter = false;
+  }
+}
+
+onCacgmMemberChange(event: Event) {
+  const selectedValue = (event.target as HTMLSelectElement).value; // Get the selected value from the event
+  console.log(selectedValue);
+  if(selectedValue === 'no') {
+    this.churchNameOrAddress = 'Church Name';
+     this.isCacgmMember = false;
+    }
+    else{
+      this.churchNameOrAddress = 'Church Address';
+      this.isCacgmMember = true;
+    }
+}
+
+workerOrStudentChange(event: Event) {
+  const selectedValue = (event.target as HTMLSelectElement).value; // Get the selected value from the event
+  console.log(selectedValue);
+  if(selectedValue === 'worker') {
+    this.isStudent = false;
+    }
+    else{
+      this.isStudent = true;
+    }
+}
+
+
+
+
+
+
+
 
 onSubmit(){
   this.isloading = true;
@@ -97,6 +142,21 @@ onSubmit(){
            .set('entry.2133178291',this.parentForm.controls['name'].value)
            .set('entry.770434093',this.parentForm.controls['address'].value)
            .set('entry.1520110905',this.parentForm.controls['phoneNumber'].value)
+           .set('entry.1093710786_sentinel','')
+            .set('entry.2139422772_sentinel','')
+            .set('entry.2072925540_sentinel','')
+            .set('entry.1286679025_sentinel','')
+            .set('entry.604717175_sentinel','')
+            .set('entry.1699133960_sentinel','')
+            .set('entry.2123079095_sentinel','')
+            .set('entry.1404956155_sentinel','')
+            .set('entry.1996413254_sentinel','')
+ 
+ 
+ 
+ 
+ 
+ 
 
             this.http.post(this.url, formParams, { responseType: 'text' }).subscribe({
               next: () =>{

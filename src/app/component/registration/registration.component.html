@@ -34,7 +34,7 @@
                         </div>
                         <div>
                             <label class="form-label">Alternate Phone Number</label>
-                            <input type="text" class="form-control lh" formControlName="alternatePhoneumber" name="alternatePhoneumber" required />
+                            <input type="text" class="form-control lh" formControlName="alternatePhoneumber" name="alternatePhoneumber" />
                         </div>
                         <div class="mb-4">
                             <label class="form-label">Residential Address</label>
@@ -46,7 +46,7 @@
                         </div>
                         <div>
                             <label class="form-label">What is your current status?</label>
-                            <select class="form-select lh" formControlName="workerOrStudent" required>
+                            <select class="form-select lh" formControlName="workerOrStudent" required (change)="workerOrStudentChange($event)">
                                 <option value="" disabled selected>Are you a student or a worker?</option>
                                 <option value="worker">Worker</option>
                                 <option value="student">Student</option>
@@ -64,7 +64,7 @@
                         </div>
                         <div>
                             <label class="form-label">CACGM Member ?</label>
-                            <select class="form-select lh" formControlName="member" required>
+                            <select class="form-select lh" formControlName="member" required (change)="onCacgmMemberChange($event)">
                                 <option value="" disabled selected>Are You a Member of CACGM</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
@@ -73,21 +73,21 @@
                         </div>
                         <div>
                             <label class="form-label">TCF Member ?</label>
-                            <select class="form-select lh" formControlName="campus" required>
+                            <select class="form-select lh" formControlName="campus" (change)="onCampusChange($event)" required>
                                 <option value="" disabled selected>Are You a Member of any of our Campus Fellowship</option>
                                 <option value="yes">Yes</option>
                                 <option value="no">No</option>
                             </select>
                             
                         </div>
-                        <div>
+                        <div *ngIf="showTcfCampusChapter">
                             <label class="form-label">TCF Campus Chapter</label>
                             <input type="text" class="form-control lh" formControlName="campusChapter" required />
                         </div>
                     </div>
                         
                         <div class="button-flex w-100">
-                            <button [disabled]="!personalForm.valid" class="sm-button1 w-40" mat-button matStepperNext>Next</button>
+                            <button class="sm-button1 w-40" mat-button matStepperNext>Next</button>
                         </div>
                        
                 </form>
@@ -96,40 +96,42 @@
                 <ng-template matStepLabel> Church Information</ng-template>
                 <form [formGroup]="churchForm" class="form-wrap w-700">
                     <div class="form-grid">
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Province</label>
                             <select class="form-select lh" formControlName="province" required>
                                 <option value="" disabled selected>Select your Province</option>
                                 <option value="Uwelu">Uwelu</option>
                                 <option value="Omozee">Omozee</option>
                                 <option value="Ihinmwinrhin">Ihinmwinrhin</option>
+                                <option value="International">International HQTR</option>
+                                <option value="National">National HQTR</option>
                             </select>
                         </div>
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">District</label>
                             <input type="text" class="form-control lh" formControlName="district" required />
                         </div>
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Parish</label>
                             <input type="text" class="form-control lh" formControlName="parish" required />
                         </div>
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Branch Name</label>
                             <input type="text" class="form-control lh" formControlName="branch" required />
                         </div>
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Branch Fellowship Name</label>
                             <input type="text" class="form-control lh" formControlName="fellowshipName" required />
                         </div>
                         
                         <div>
-                            <label class="form-label">Church Address</label>
+                            <label class="form-label">{{churchNameOrAddress}}</label>
                             <input type="text" class="form-control lh" formControlName="churchAddress" required />
                         </div>
                        
 
 
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Cyfi Exco ?</label>
                             <select class="form-select lh" formControlName="cyfiExco" required>
                                 <option value="" disabled selected>Are You CYFI Exco</option>
@@ -138,7 +140,7 @@
                             </select>
                             
                         </div>
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Province Exco ?</label>
                             <select class="form-select lh" formControlName="provExco" required>
                                 <option value="" disabled selected>Are You Province Exco</option>
@@ -147,7 +149,7 @@
                             </select>
                             
                         </div>
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Ekampo Exco ?</label>
                             <select class="form-select lh" formControlName="ekampoExco" required>
                                 <option value="" disabled selected>Are You Ekampo Exco</option>
@@ -156,7 +158,7 @@
                             </select>
                             
                         </div>
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Branch Exco ?</label>
                             <select class="form-select lh" formControlName="branchExco" required>
                                 <option value="" disabled selected>Are You Branch Exco</option>
@@ -165,19 +167,22 @@
                             </select>
                             
                         </div>
-                        <div>
+                        <div *ngIf="isCacgmMember">
                             <label class="form-label">Position</label>
                             <input type="text" class="form-control lh" formControlName="position" required />
                         </div>
                     </div>
 
-                    <div class="button-flex w-100">
+                    <div class="button-flex w-100" *ngIf="isStudent">
                         <button class="sm-button1 w-40" mat-button matStepperNext>Next</button>
                     </div>
+                    <div class="button-flex w-100" *ngIf="!isStudent">
+                        <button class="sm-button1 w-40" (click)="onSubmit()">Register</button>
+                    </div> 
                         
                 </form>
             </mat-step>
-            <mat-step [stepControl]="parentForm">
+            <mat-step [stepControl]="parentForm" *ngIf="isStudent">
                 <ng-template matStepLabel> Parent/Guardian Information</ng-template>
                 <form [formGroup]="parentForm" class="form-wrap w-700">
                     <div class="form-grid">

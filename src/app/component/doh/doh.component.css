@@ -1,4 +1,5 @@
 .section {
+ 
     padding: 60px 20px;
     display: flex;
     flex-direction: column;
@@ -6,6 +7,9 @@
     text-align: center;
     border-bottom: 1px solid #e0e0e0;
     background-color: #fff;
+  }
+  .reg-image{
+    position: relative;
   }
   .section-content {
     max-width: 900px;
@@ -30,11 +34,21 @@
     margin: 10px 0;
   }
   .section img {
+ 
     flex: 1 1 400px;
     max-width: 100%;
     height: auto;
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  .img-absolute{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    opacity: 0.8;
   }
   .button {
     display: inline-block;

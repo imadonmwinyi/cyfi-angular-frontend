@@ -1,220 +1,116 @@
 <div class="bg-color">
 
 <app-navbar></app-navbar>
-<div class="container-fluid px-3 mg-80">
-<h2 class="text-center mb-4">DEW OF HERMON ONLINE REGISTRATION FORM</h2>
-   <div>
-        <div class="form-container">
-            <mat-stepper #stepper class="p-1"
-            [orientation]="(stepperOrientation | async)!">
-            <mat-step [stepControl]="personalForm">
-                <ng-template matStepLabel> Personal Information</ng-template>
-                <form [formGroup]="personalForm" class="form-wrap w-700">
-                    <div class="form-grid">
-                        <div>
-                            <label class="form-label">First Name</label>
-                            <input type="text" class="form-control lh" formControlName="firstName" name="firstName" required />
-                        </div>
-                        <div>
-                            <label class="form-label">Last Name</label>
-                            <input type="text" class="form-control lh" formControlName="lastName" name="lastName" required />
-                        </div>
-                        
-                        <div>
-                            <label class="form-label">Gender</label>
-                            <select class="form-select lh" formControlName="gender" name="gender" required>
-                                <option value="" disabled selected>Select Gender</option>
-                                <option value="Male">Male</option>
-                                <option value="Female">Female</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="form-label">Phone Number</label>
-                            <input type="text" class="form-control lh" formControlName="phoneNumber" name="phoneNumber" required />
-                        </div>
-                        <div>
-                            <label class="form-label">Alternate Phone Number</label>
-                            <input type="text" class="form-control lh" formControlName="alternatePhoneumber" name="alternatePhoneumber" />
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Residential Address</label>
-                            <input type="text" class="form-control lh" formControlName="address" name="address" />
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Email Address</label>
-                            <input type="text" class="form-control lh" formControlName="emailAddress" name="emailAddress" />
-                        </div>
-                        <div>
-                            <label class="form-label">What is your current status?</label>
-                            <select class="form-select lh" formControlName="workerOrStudent" required (change)="workerOrStudentChange($event)">
-                                <option value="" disabled selected>Are you a student or a worker?</option>
-                                <option value="worker">Worker</option>
-                                <option value="student">Student</option>
-                            </select>
-                            
-                        </div>
-                        <div>
-                            <label class="form-label">Camping ?</label>
-                            <select class="form-select lh" formControlName="camping" required>
-                                <option value="" disabled selected>Are You Camping</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                            
-                        </div>
-                        <div>
-                            <label class="form-label">CACGM Member ?</label>
-                            <select class="form-select lh" formControlName="member" required (change)="onCacgmMemberChange($event)">
-                                <option value="" disabled selected>Are You a Member of CACGM</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                            
-                        </div>
-                        <div>
-                            <label class="form-label">TCF Member ?</label>
-                            <select class="form-select lh" formControlName="campus" (change)="onCampusChange($event)" required>
-                                <option value="" disabled selected>Are You a Member of any of our Campus Fellowship</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                            
-                        </div>
-                        <div *ngIf="showTcfCampusChapter">
-                            <label class="form-label">TCF Campus Chapter</label>
-                            <input type="text" class="form-control lh" formControlName="campusChapter" required />
-                        </div>
-                    </div>
-                        
-                        <div class="button-flex w-100">
-                            <button class="sm-button1 w-40" mat-button matStepperNext>Next</button>
-                        </div>
-                       
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="churchForm">
-                <ng-template matStepLabel> Church Information</ng-template>
-                <form [formGroup]="churchForm" class="form-wrap w-700">
-                    <div class="form-grid">
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Province</label>
-                            <select class="form-select lh" formControlName="province" required>
-                                <option value="" disabled selected>Select your Province</option>
-                                <option value="Uwelu">Uwelu</option>
-                                <option value="Omozee">Omozee</option>
-                                <option value="Ihinmwinrhin">Ihinmwinrhin</option>
-                                <option value="International">International HQTR</option>
-                                <option value="National">National HQTR</option>
-                            </select>
-                        </div>
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">District</label>
-                            <input type="text" class="form-control lh" formControlName="district" required />
-                        </div>
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Parish</label>
-                            <input type="text" class="form-control lh" formControlName="parish" required />
-                        </div>
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Branch Name</label>
-                            <input type="text" class="form-control lh" formControlName="branch" required />
-                        </div>
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Branch Fellowship Name</label>
-                            <input type="text" class="form-control lh" formControlName="fellowshipName" required />
-                        </div>
-                        
-                        <div>
-                            <label class="form-label">{{churchNameOrAddress}}</label>
-                            <input type="text" class="form-control lh" formControlName="churchAddress" required />
-                        </div>
-                       
-
-
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Cyfi Exco ?</label>
-                            <select class="form-select lh" formControlName="cyfiExco" required>
-                                <option value="" disabled selected>Are You CYFI Exco</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                            
-                        </div>
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Province Exco ?</label>
-                            <select class="form-select lh" formControlName="provExco" required>
-                                <option value="" disabled selected>Are You Province Exco</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                            
-                        </div>
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Ekampo Exco ?</label>
-                            <select class="form-select lh" formControlName="ekampoExco" required>
-                                <option value="" disabled selected>Are You Ekampo Exco</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                            
-                        </div>
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Branch Exco ?</label>
-                            <select class="form-select lh" formControlName="branchExco" required>
-                                <option value="" disabled selected>Are You Branch Exco</option>
-                                <option value="yes">Yes</option>
-                                <option value="no">No</option>
-                            </select>
-                            
-                        </div>
-                        <div *ngIf="isCacgmMember">
-                            <label class="form-label">Position</label>
-                            <input type="text" class="form-control lh" formControlName="position" required />
-                        </div>
-                    </div>
-
-                    <div class="button-flex w-100" *ngIf="isStudent">
-                        <button class="sm-button1 w-40" mat-button matStepperNext>Next</button>
-                    </div>
-                    <div class="button-flex w-100" *ngIf="!isStudent">
-                        <button class="sm-button1 w-40" (click)="onSubmit()">Register</button>
-                    </div> 
-                        
-                </form>
-            </mat-step>
-            <mat-step [stepControl]="parentForm" *ngIf="isStudent">
-                <ng-template matStepLabel> Parent/Guardian Information</ng-template>
-                <form [formGroup]="parentForm" class="form-wrap w-700">
-                    <div class="form-grid">
-                       
-                        <div>
-                            <label class="form-label">Name</label>
-                            <input type="text" class="form-control lh" formControlName="name" required />
-                        </div>
-                        <div>
-                            <label class="form-label">Address</label>
-                            <input type="text" class="form-control lh" formControlName="address" required />
-                        </div>
-                        <div>
-                            <label class="form-label">Phone Number</label>
-                            <input type="text" class="form-control lh" formControlName="phoneNumber" required />
-                        </div>
-                       
-
-                 </div>  
-                 
-                 <div class="button-flex w-100">
-                    <button class="sm-button1 w-40" (click)="onSubmit()">Register</button>
-                </div> 
-                </form>
-            </mat-step>
-            </mat-stepper>
- 
-        </div>
+<div class="container px-3 mg-80">
+<h2 class="">DEW OF HERMON ONLINE REGISTRATION FORM</h2>
+  
+<div class="form-container">
+    <div class="w-100">
+        <label class="form-label">Select Number of Delegate</label>
+        <select class="form-select" [(ngModel)]="NumberOfdelegate" required 
+                (change)="onNumberOfDelegateChange($event)">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <hr>   
     </div>
-    
-    
+<div>
+<form [formGroup]="delegateForm" >
+  <div formArrayName="delegates">
+    <div *ngFor="let delegate of delegates.controls; let i = index" [formGroupName]="i" class="delegate-form">
+      <div class="delegate-box">Delegate {{ i + 1 }}</div>
+      <div class="form-grid">
+        <div>
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" formControlName="fullname" name="fullname" required />
+          <div *ngIf="delegate.get('fullname')?.touched && delegate.get('fullname')?.errors">
+            <small *ngIf="delegate.get('fullname')?.errors?.['required']" class="text-danger">Full Name is required.</small>
+          </div>
+        </div>
+        <div>
+          <label class="form-label">Gender</label>
+           <select class="form-select" formControlName="gender" name="gender" required>
+                <option value="" disabled>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select> 
+            <div *ngIf="delegate.get('gender')?.touched && delegate.get('gender')?.errors">
+            <small *ngIf="delegate.get('gender')?.errors?.['required']" class="text-danger">Gender is required.</small>
+          </div>      
+        </div>
+          <div>
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" formControlName="phoneNumber" name="phoneNumber" required />
+                 <div *ngIf="delegate.get('phoneNumber')?.touched && delegate.get('phoneNumber')?.errors">
+                    <small *ngIf="delegate.get('phoneNumber')?.errors?.['required']" class="text-danger">Phone Number is required.</small>
+                </div> 
+          </div>
+          <div>
+            <label class="form-label">Camping ?</label>
+            <select class="form-select" formControlName="camping" required>
+                <option value="" disabled>Are You Camping</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select> 
+             <div *ngIf="delegate.get('camping')?.touched && delegate.get('camping')?.errors">
+                <small *ngIf="delegate.get('camping')?.errors?.['required']" class="text-danger">Camping is required.</small>
+             </div>            
+        </div>
+         <div >
+            <label class="form-label">Province</label>
+            <select class="form-select" formControlName="province" required>
+                <option value="" disabled selected>Select your Province</option>
+                <option value="Uwelu">Uwelu</option>
+                <option value="Omozee">Omozee</option>
+                <option value="Ihinmwinrhin">Ihinmwinrhin</option>
+                <option value="International">International HQTR</option>
+                <option value="National">National HQTR</option>
+                <option value="Campus">Campus</option>
+            </select>
+             <div *ngIf="delegate.get('province')?.touched && delegate.get('province')?.errors">
+                <small *ngIf="delegate.get('province')?.errors?.['required']" class="text-danger">Gender is required.</small>
+             </div> 
+        </div>
+         <div>
+                <label class="form-label">Branch Name</label>
+                <input type="text" class="form-control" formControlName="branchName" name="branchName" required placeholder="example Obakpolor"/>
+                <div *ngIf="delegate.get('branchName')?.touched && delegate.get('branchName')?.errors">
+                    <small *ngIf="delegate.get('branchName')?.errors?.['required']" class="text-danger">Branch Name is required.</small>
+                </div>
+        </div>
+         <div>
+            <label class="form-label">Are you on any Medication ?</label>
+            <select class="form-select" formControlName="medical" required>
+                <option value="" disabled selected>Are You Currently on Any Medication</option>
+                <option value="yes">Yes</option>
+                <option value="no">No</option>
+            </select>
+            <div *ngIf="delegate.get('medical')?.touched && delegate.get('medical')?.errors">
+                <small *ngIf="delegate.get('medical')?.errors?.['required']" class="text-danger">Medical status is required.</small>
+            </div>           
+        </div>
+       </div>
+    </div>
+
+ </div>
+
+ 
+</form>
+    <div class="button-flex w-100 p-4">
+        <button type="submit" class="sm-button1 w-40" (click)="onSubmit()" >Register</button>
+    </div>
+</div>
+</div>  <!-- end of form container-->
     
 </div>
 </div>
-<app-spinner [show]="isloading"></app-spinner>
+<app-footer></app-footer>  
+<!-- <app-spinner [show]="isloading"></app-spinner> -->

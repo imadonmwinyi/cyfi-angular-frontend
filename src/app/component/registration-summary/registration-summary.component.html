@@ -1,0 +1,68 @@
+
+<app-navbar></app-navbar>
+<div class="container px-3 mg-80">
+<h2 class="">DEW OF HERMON ONLINE REGISTRATION SUMMARY</h2>
+<!-- Desktop Table View -->
+<div class="desktop-table">
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Phone Number</th>
+        <th>Gender</th>
+        <th>Province</th>
+        <th>Branch Name</th>
+        <th>Camping ?</th>
+        <th>On Any Medication ?</th>
+        <th>Reg. Fee</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let delegate of delegates; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ delegate.fullname }}</td>
+        <td>{{ delegate.phoneNumber }}</td>
+        <td>{{ delegate.gender }}</td>
+        <td>{{ delegate.province }}</td>
+        <td>{{ delegate.branchName }}</td>
+        <td>{{ delegate.camping }}</td>
+        <td>{{ delegate.medical }}</td>
+        <td>{{ pricePerDelegate | currency:'NGN':'symbol-narrow' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Mobile Stacked View -->
+<div class="mobile-cards">
+  <div *ngFor="let delegate of delegates; let i = index" class="delegate-card">
+    <p><strong>Full Name:</strong> {{ delegate.fullname }}</p>
+    <p><strong>Gender:</strong> {{ delegate.gender }}</p>
+    <p><strong>Phone Number:</strong> {{ delegate.phoneNumber }}</p>
+    <p><strong>Province:</strong> {{ delegate.province }}</p>
+    <p><strong>Branch Name:</strong> {{ delegate.branchName }}</p>
+    <p><strong>Camping ? :</strong> {{ delegate.camping }}</p>
+    <p><strong>On Any Medication ? :</strong> {{ delegate.medical }}</p>
+    <p><strong>Amount:</strong> {{ pricePerDelegate | currency:'NGN':'symbol-narrow' }}</p>
+  </div>
+</div>
+
+<h3>Total: {{ total | currency:'NGN':'symbol-narrow' }}</h3>
+<form [formGroup]="emailForm">
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" formControlName="email" class="form-control" placeholder="Enter your email" required>
+    <div *ngIf="emailForm.get('email')?.invalid && (emailForm.get('email')?.dirty || emailForm.get('email')?.touched)" class="error">
+      <small *ngIf="emailForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</small>
+      <small *ngIf="emailForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
+    </div>
+  </div>
+</form>
+<div class="w-100 py-4">
+  <button class="pay-button" (click)="pay()">Pay Now</button>
+</div>
+
+</div>
+<app-footer></app-footer>  
+

@@ -14,6 +14,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {StepperOrientation, MatStepperModule} from '@angular/material/stepper';
 import { DohComponent } from './component/doh/doh.component';
 import { SpinnerComponent } from './component/spinner/spinner.component';
+import { RegistrationSummaryComponent } from './component/registration-summary/registration-summary.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { SpinnerComponent } from './component/spinner/spinner.component';
     AboutUsComponent,
     RegistrationComponent,
     DohComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    RegistrationSummaryComponent
   ],
   imports: [
     BrowserModule,

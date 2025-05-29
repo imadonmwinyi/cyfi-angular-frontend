@@ -6,7 +6,20 @@
     padding-top: 8rem;
 }
 
+.delegate-box{
+    width: 120px;
+    background-color: aliceblue;
+    border: 1px solid #cccccccf;
+    font-size: 14px;
+    padding: 10px 10px;
+    margin: 20px 0;
+    border-radius: 5px;
+}
 
+.delegate-form{
+    border: 1px solid #cccccccf;
+    padding: 0px 20px 20px 20px;
+}
 .form-grid {
     width: 100%;
     display: grid;
@@ -22,14 +35,10 @@
     align-items: flex-start;
     margin: auto;
 }
-.mat-stepper-horizontal, .mat-stepper-vertical {
-    width: 80% !important; /* Ensures stepper doesn't exceed the screen width */
-  }
+
 .form-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: block;
+    width: 100%;
 }
 .button-flex{
     margin: 1.5rem 0;

@@ -29,6 +29,7 @@ export class RegistrationSummaryComponent implements OnInit {
   dateRegistered: 'entry.1403017940',
   registeredBy: 'entry.1764643678'
 };
+  isloading = false;
   delegates: Delegate[] = [];
   pricePerDelegate = 100; 
   PaystackPop: any;
@@ -82,6 +83,7 @@ export class RegistrationSummaryComponent implements OnInit {
   }
 
  verifyPayment(reference: string, email: string): void {
+  this.isloading = true;
   this.http.post('/.netlify/functions/verify-payment', { reference })
     .subscribe({
       next: (res: any) => {
@@ -91,10 +93,12 @@ export class RegistrationSummaryComponent implements OnInit {
           const verified = res.verified ? 'yes' : 'no';
           this.saveDelegates(reference, email, verified);
         } else {
+          this.isloading = false;
           alert('Payment Verification failed');
         }
       },
       error: err => {
+        this.isloading = false;
         alert('Error verifying payment');
       }
     });
@@ -145,6 +149,7 @@ saveDelegates(reference: string, email: string, paymentVerified: string): void {
       },
       error: err => {
         if(index === delegateCount - 1) {
+          this.isloading = false;
            this.router.navigate(['/success']);
         }
         

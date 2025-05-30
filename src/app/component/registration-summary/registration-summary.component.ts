@@ -110,7 +110,7 @@ export class RegistrationSummaryComponent implements OnInit {
       console.log('Payment successful:', response.reference);
       // Send reference to backend for verification
       
-      //this.verifyPayment(response.reference);
+      this.verifyPayment(response.reference, email);
     },
 
     onClose: () => {

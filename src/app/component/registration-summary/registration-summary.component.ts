@@ -87,6 +87,7 @@ export class RegistrationSummaryComponent implements OnInit {
       next: (res: any) => {
         if (res.verified) {
           // save delegate, navigate to success, etc.
+          console.log('Payment verified:', res);
           const verified = res.verified ? 'yes' : 'no';
           this.saveDelegates(reference, email, verified);
         } else {
@@ -109,7 +110,7 @@ export class RegistrationSummaryComponent implements OnInit {
     callback: (response: any) => {
       console.log('Payment successful:', response.reference);
       // Send reference to backend for verification
-      
+      //this.saveDelegates(response.reference, email, 'yes');
       this.verifyPayment(response.reference, email);
     },
 

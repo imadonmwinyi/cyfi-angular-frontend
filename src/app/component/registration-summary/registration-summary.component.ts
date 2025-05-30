@@ -16,8 +16,20 @@ export class RegistrationSummaryComponent implements OnInit {
       console.error('Failed to load Paystack script', err);
     });
   }
-
-  delegates: any[] = [];
+ FIELD_MAP = {
+  fullname: 'entry.1543901786',
+  gender: 'entry.1188837531',
+  phone: 'entry.1743645871',
+  province: 'entry.315471820',
+  branchName: 'entry.1528403744',
+  camping: 'entry.1209828857',
+  medical: 'entry.1064569609',
+  paymentReference: 'entry.620683679',
+  paymentVerified: 'entry.35036836',
+  dateRegistered: 'entry.1403017940',
+  registeredBy: 'entry.1764643678'
+};
+  delegates: Delegate[] = [];
   pricePerDelegate = 100; 
   PaystackPop: any;
   email: string = '';
@@ -69,16 +81,16 @@ export class RegistrationSummaryComponent implements OnInit {
     //alert('Proceeding to payment...');
   }
 
- verifyPayment(reference: string) {
+ verifyPayment(reference: string, email: string): void {
   this.http.post('/.netlify/functions/verify-payment', { reference })
     .subscribe({
       next: (res: any) => {
         if (res.verified) {
-          console.log('Payment verified:', res);
           // save delegate, navigate to success, etc.
-          alert('Payment verified!');
+          const verified = res.verified ? 'yes' : 'no';
+          this.saveDelegates(reference, email, verified);
         } else {
-          alert('Verification failed');
+          alert('Payment Verification failed');
         }
       },
       error: err => {
@@ -97,7 +109,8 @@ export class RegistrationSummaryComponent implements OnInit {
     callback: (response: any) => {
       console.log('Payment successful:', response.reference);
       // Send reference to backend for verification
-      this.verifyPayment(response.reference);
+      
+      //this.verifyPayment(response.reference);
     },
 
     onClose: () => {
@@ -107,4 +120,53 @@ export class RegistrationSummaryComponent implements OnInit {
 
   handler.openIframe();
 }
+saveDelegates(reference: string, email: string, paymentVerified: string): void {
+  const delegateCount = this.delegates.length; // Adjusted to match the number of delegates
+  this.delegates.forEach((delegate,index) => {
+    const formData = new FormData();
+    formData.append(this.FIELD_MAP.fullname, delegate.fullname);
+    formData.append(this.FIELD_MAP.gender, delegate.gender);
+    formData.append(this.FIELD_MAP.phone, delegate.phoneNumber);
+    formData.append(this.FIELD_MAP.province, delegate.province);
+    formData.append(this.FIELD_MAP.branchName, delegate.branchName);
+    formData.append(this.FIELD_MAP.camping, delegate.camping);
+    formData.append(this.FIELD_MAP.medical, delegate.medical);
+    formData.append(this.FIELD_MAP.paymentReference, reference);
+    formData.append(this.FIELD_MAP.paymentVerified, paymentVerified);
+    formData.append(this.FIELD_MAP.dateRegistered, new Date().toISOString());
+    formData.append(this.FIELD_MAP.registeredBy, email);
+
+    this.http.post('https://docs.google.com/forms/u/0/d/e/1FAIpQLSfoNM3l95MSEu4e2pykY8lqCnWUamc3AdFufnN6rimfjUHWNQ/formResponse', formData)
+    .subscribe({
+      next: () => {
+        
+       
+      },
+      error: err => {
+        if(index === delegateCount - 1) {
+           this.router.navigate(['/success']);
+        }
+        
+      }
+    });
+    
+  })
+
+
+  }
+
+}
+// model for delegate
+export interface Delegate {
+  fullname: string;
+  gender: string;
+  phoneNumber: string;
+  camping: string;
+  medical: string;
+  province: string;
+  branchName: string;
+  paymentReference?: string;
+  paymentVerified?: string;
+  dateRegistered?: string;
+  registeredBy?: string;
 }

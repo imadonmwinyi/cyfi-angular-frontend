@@ -34,7 +34,7 @@ createDelegateGroup(): FormGroup {
     return this.fb.group({
         fullname:[null, [Validators.required]],
           gender:["", [Validators.required]],
-          phoneNumber:[null, [Validators.required]],
+          phoneNumber:[null, [Validators.required, Validators.pattern(/^(\+234|0)[789][01]\d{8}$/)]],
           camping:["", [Validators.required]],
           medical:["", [Validators.required]],
           province:["", [Validators.required]],

@@ -15,6 +15,7 @@ import {StepperOrientation, MatStepperModule} from '@angular/material/stepper';
 import { DohComponent } from './component/doh/doh.component';
 import { SpinnerComponent } from './component/spinner/spinner.component';
 import { RegistrationSummaryComponent } from './component/registration-summary/registration-summary.component';
+import { SuccessPageComponent } from './component/success-page/success-page.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { RegistrationSummaryComponent } from './component/registration-summary/r
     RegistrationComponent,
     DohComponent,
     SpinnerComponent,
-    RegistrationSummaryComponent
+    RegistrationSummaryComponent,
+    SuccessPageComponent
   ],
   imports: [
     BrowserModule,

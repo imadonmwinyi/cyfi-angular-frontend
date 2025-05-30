@@ -48,9 +48,10 @@
         </div>
           <div>
                 <label class="form-label">Phone Number</label>
-                <input type="text" class="form-control" formControlName="phoneNumber" name="phoneNumber" required />
+                <input type="text" class="form-control" formControlName="phoneNumber" name="phoneNumber" required placeholder="e.g. 08012345678 or +2348012345678"/>
                  <div *ngIf="delegate.get('phoneNumber')?.touched && delegate.get('phoneNumber')?.errors">
                     <small *ngIf="delegate.get('phoneNumber')?.errors?.['required']" class="text-danger">Phone Number is required.</small>
+                     <small *ngIf="delegate.get('phoneNumber')?.errors?.['pattern']" class="text-danger">Enter a valid Nigerian phone number.</small>
                 </div> 
           </div>
           <div>

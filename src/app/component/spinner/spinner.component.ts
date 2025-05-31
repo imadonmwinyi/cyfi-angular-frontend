@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-spinner',
@@ -7,5 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 
 export class SpinnerComponent {
-  @Input() show: boolean = false;
+
+
 }

@@ -10,14 +10,17 @@
         </button>
 
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-            <ul class="navbar-nav d-flex gap-4">
+            <ul class="navbar-nav d-flex gap-5" style="width: 80%; justify-content: center; ">
                 <li class="nav-item"><a class="nav-link" routerLink="/" (click)="scrollTo('home')">Home</a></li>
                 <li class="nav-item"><a class="nav-link" routerLink="/">About</a></li>
                 <li class="nav-item" style="cursor: pointer;"><a class="nav-link" (click)="scrollTo('mission')">Mission</a></li>
                 <li class="nav-item" style="cursor: pointer;"><a class="nav-link" (click)="scrollTo('event')">Event</a></li>
             </ul>
+            <div class="doh-button-container" >
+                <button class="sm-button d-lg-block" routerLink="/register">DOH REGISTRATION</button>
+            </div>
         </div>
-        <button class="sm-button d-none d-lg-block" routerLink="/register">DOH REGISTRATION</button>
+        
     </div>
 </nav>
 

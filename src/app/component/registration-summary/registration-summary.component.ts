@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 })
 export class RegistrationSummaryComponent implements OnInit {
   ngOnInit(): void {
+    this.isloading = false;
     this.loadPaystackScript().then(() => {
       this.PaystackPop = (<any>window).PaystackPop;
     }).catch(err => {
@@ -42,6 +43,7 @@ export class RegistrationSummaryComponent implements OnInit {
     this.emailForm = this.emailform();
      const nav = this.router.getCurrentNavigation();
     this.delegates = nav?.extras?.state?.['delegates'] || [];
+    this.isloading = false;
   }
 
    get total(): number {

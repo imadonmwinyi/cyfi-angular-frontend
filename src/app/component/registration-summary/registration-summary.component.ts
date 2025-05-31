@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, NgZone, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -29,7 +29,7 @@ export class RegistrationSummaryComponent implements OnInit {
   dateRegistered: 'entry.1403017940',
   registeredBy: 'entry.1764643678'
 };
-  isloading = false;
+  public isloading: boolean = false;
   delegates: Delegate[] = [];
   pricePerDelegate = 100; 
   PaystackPop: any;
@@ -38,7 +38,7 @@ export class RegistrationSummaryComponent implements OnInit {
   /**
    *
    */
-  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder) {
+  constructor(private http: HttpClient, private router: Router, private fb: FormBuilder, private zone: NgZone) {
     this.emailForm = this.emailform();
      const nav = this.router.getCurrentNavigation();
     this.delegates = nav?.extras?.state?.['delegates'] || [];
@@ -74,6 +74,7 @@ export class RegistrationSummaryComponent implements OnInit {
     // You can redirect to a payment gateway or call a payment API here
     if(this.emailForm.valid) {
       const email = this.emailForm.value.email;
+      this.isloading = true;
       this.startPaystackPayment(email, this.total);  
     } else {
        this.emailForm.markAllAsTouched();
@@ -83,13 +84,13 @@ export class RegistrationSummaryComponent implements OnInit {
   }
 
  verifyPayment(reference: string, email: string): void {
-  this.isloading = true;
+  //this.isloading = true;
   this.http.post('/.netlify/functions/verify-payment', { reference })
     .subscribe({
       next: (res: any) => {
         if (res.verified) {
           // save delegate, navigate to success, etc.
-          console.log('Payment verified:', res);
+          //console.log('Payment verified:', res);
           const verified = res.verified ? 'yes' : 'no';
           this.saveDelegates(reference, email, verified);
         } else {
@@ -119,13 +120,18 @@ export class RegistrationSummaryComponent implements OnInit {
     },
 
     onClose: () => {
-      alert('Payment window closed.');
+      
+      this.zone.run(() => {
+          this.isloading = false;          
+      });
     }
-  });
 
+  });
+  
   handler.openIframe();
 }
 saveDelegates(reference: string, email: string, paymentVerified: string): void {
+  //this.isloading = true;
   const delegateCount = this.delegates.length; // Adjusted to match the number of delegates
   this.delegates.forEach((delegate,index) => {
     const formData = new FormData();
@@ -144,7 +150,10 @@ saveDelegates(reference: string, email: string, paymentVerified: string): void {
     this.http.post('https://docs.google.com/forms/u/0/d/e/1FAIpQLSfoNM3l95MSEu4e2pykY8lqCnWUamc3AdFufnN6rimfjUHWNQ/formResponse', formData)
     .subscribe({
       next: () => {
-        
+        if(index === delegateCount - 1) {
+          this.isloading = false;
+           this.router.navigate(['/success']);
+        }
        
       },
       error: err => {

@@ -31,6 +31,11 @@
     padding: 20px;
   
 }
+.doh-button-container {
+    display: flex;
+    width: 20%;
+    justify-content: right;
+}
 
 @media screen and (max-width: 768px) {
     .icon{
@@ -44,6 +49,11 @@
     justify-content: space-between;
     display: flex;
     align-items: center;
+    }
+    .doh-button-container{
+        display: block;
+        width: 100%;
+        padding: 20px 0px;
     }
   }
 

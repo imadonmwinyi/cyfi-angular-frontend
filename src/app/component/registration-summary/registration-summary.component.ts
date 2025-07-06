@@ -28,14 +28,19 @@ export class RegistrationSummaryComponent implements OnInit {
   paymentReference: 'entry.620683679',
   paymentVerified: 'entry.35036836',
   dateRegistered: 'entry.1403017940',
-  registeredBy: 'entry.1764643678'
+  registeredBy: 'entry.1764643678',
+  paymentDate: 'entry.1140484444',
+  amount: 'entry.657051521', // Example field for amount, adjust as needed
+  reference: 'entry.342160168',
+  receiptUrl: 'entry.540326705' // Example field for receipt URL, adjust as needed
 };
   public isloading: boolean = false;
   delegates: Delegate[] = [];
-  pricePerDelegate = 100; 
+  pricePerDelegate = 2000; 
   PaystackPop: any;
   email: string = '';
   emailForm: FormGroup;
+  uploadUrl: string | null = null;
   /**
    *
    */
@@ -52,7 +57,7 @@ export class RegistrationSummaryComponent implements OnInit {
 
   emailform(){
     return this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
+      paymentReceipt: ['', [Validators.required]]
     });
   }
 
@@ -70,7 +75,13 @@ export class RegistrationSummaryComponent implements OnInit {
     document.body.appendChild(script);
   });
 }
-
+  submit(): void {
+    if (this.emailForm.valid) {
+      this.saveReceipt();
+    } else {
+      this.emailForm.markAllAsTouched();
+    }
+  }
 
    pay(): void {
     // You can redirect to a payment gateway or call a payment API here
@@ -132,6 +143,73 @@ export class RegistrationSummaryComponent implements OnInit {
   
   handler.openIframe();
 }
+
+
+
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (!file) return;
+
+    const cloudName = 'dcjgdyu9i';
+    const uploadPreset = 'doh-reg-payment';
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', uploadPreset);
+
+    fetch(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, {
+      method: 'POST',
+      body: formData
+    })
+      .then(res => res.json())
+      .then(data => {
+        console.log('Upload successful', data);
+        this.uploadUrl = data.secure_url;
+      })
+      .catch(err => {
+        console.error('Upload failed', err);
+      });
+  }
+
+saveReceipt(){
+  if (!this.uploadUrl) {
+    alert('Please upload a payment receipt first.');
+    return;
+  }
+  const reference = '' + Math.floor(Math.random() * 1000000000 + 1);
+  const formDataReceipt = new FormData();
+  formDataReceipt.append(this.FIELD_MAP.receiptUrl, this.uploadUrl);
+  formDataReceipt.append(this.FIELD_MAP.reference, reference);
+  formDataReceipt.append(this.FIELD_MAP.amount, this.total.toString());
+  formDataReceipt.append(this.FIELD_MAP.paymentDate, new Date().toISOString());
+
+  this.isloading = true;
+   this.http.post('https://docs.google.com/forms/u/0/d/e/1FAIpQLScKq2ocZF1akJsnAudOlviZDqqU5XmQTediUQkjk_UZm0Maqg/formResponse', formDataReceipt)
+    .subscribe({
+    next: () => {
+      
+      // Optionally, you can navigate to a success page or reset the form
+    },
+    error: err => {
+      this.saveDelegates(reference, '', 'No');
+
+    }
+    })
+
+  // Save the delegates with the uploaded receipt URL
+  //this.saveDelegates(this.uploadUrl, email, 'yes');
+}
+
+
+
+
+
+
+
+
+
+
 saveDelegates(reference: string, email: string, paymentVerified: string): void {
   //this.isloading = true;
   const delegateCount = this.delegates.length; // Adjusted to match the number of delegates

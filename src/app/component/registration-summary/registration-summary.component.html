@@ -49,19 +49,28 @@
 </div>
 
 <h3>Total: {{ total | currency:'NGN':'symbol-narrow' }}</h3>
+<div class="payment-info">
+  <h3>Payment Information</h3>
+  <p>To complete your registration, please pay the total amount of {{ total | currency:'NGN':'symbol-narrow' }} to the following account:</p>
+  <ul>
+    <li><strong>Account Name:</strong> DEW OF HERMON</li>
+    <li><strong>Account Number:</strong> 1234567890</li>
+    <li><strong>Bank:</strong> Example Bank</li>
+  </ul>
+  <p>After payment, please upload your payment receipt below.</p>
+</div>
 <form [formGroup]="emailForm">
   <div class="form-group">
-    <label for="email">Email Address</label>
-    <input type="email" id="email" formControlName="email" class="form-control" placeholder="Enter your email" required [disabled]="isloading">
-    <div *ngIf="emailForm.get('email')?.invalid && (emailForm.get('email')?.dirty || emailForm.get('email')?.touched)" class="error">
-      <small *ngIf="emailForm.get('email')?.errors?.['required']" class="text-danger">Email is required.</small>
-      <small *ngIf="emailForm.get('email')?.errors?.['email']" class="text-danger">Invalid email format.</small>
+    <label for="email">Upload Payment Receipt</label>
+    <input type="file" (change)="onFileSelected($event)" id="paymentReceipt" formControlName="paymentReceipt" class="form-control" required [disabled]="isloading">
+    <div *ngIf="emailForm.get('paymentReceipt')?.invalid && (emailForm.get('paymentReceipt')?.dirty || emailForm.get('paymentReceipt')?.touched)" class="error">
+      <small *ngIf="emailForm.get('paymentReceipt')?.errors?.['required']" class="text-danger">Payment receipt is required.</small>
     </div>
   </div>
 </form>
 <div class="w-100 py-4">
-  <button class="pay-button" (click)="pay()">
-     <span *ngIf="!isloading">Pay Now</span>
+  <button class="pay-button" (click)="submit()">
+     <span *ngIf="!isloading">Submit</span>
      <span *ngIf="isloading">
       <i class="spinner"></i> Processing...
      </span>

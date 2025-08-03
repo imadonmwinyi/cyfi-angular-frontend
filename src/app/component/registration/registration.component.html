@@ -67,7 +67,7 @@
         </div>
          <div >
             <label class="form-label">Province</label>
-            <select class="form-select" formControlName="province" required>
+            <select class="form-select" formControlName="province" required (change)="onSelectionChange($event)">
                 <option value="" disabled selected>Select your Province</option>
                 <option value="Uwelu">Uwelu</option>
                 <option value="Omozee">Omozee</option>
@@ -75,14 +75,15 @@
                 <option value="International">International HQTR</option>
                 <option value="National">National HQTR</option>
                 <option value="Campus">Campus</option>
+                <option value="Other Ministry">Other Ministry</option>
             </select>
              <div *ngIf="delegate.get('province')?.touched && delegate.get('province')?.errors">
                 <small *ngIf="delegate.get('province')?.errors?.['required']" class="text-danger">Gender is required.</small>
              </div> 
         </div>
          <div>
-                <label class="form-label">Branch Name</label>
-                <input type="text" class="form-control" formControlName="branchName" name="branchName" required placeholder="example Obakpolor"/>
+                <label class="form-label">{{ branchLabel }} Name</label>
+                <input type="text" class="form-control" formControlName="branchName" name="branchName" required/>
                 <div *ngIf="delegate.get('branchName')?.touched && delegate.get('branchName')?.errors">
                     <small *ngIf="delegate.get('branchName')?.errors?.['required']" class="text-danger">Branch Name is required.</small>
                 </div>

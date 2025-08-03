@@ -16,12 +16,14 @@ import { Router } from '@angular/router';
 export class RegistrationComponent {
   NumberOfdelegate = 1;
   delegateForm: FormGroup;
+  branchLabel: string = 'Branch';
  
   formData = { fullName: '', phoneNumber: '', address: '', gender :'', branch:'', fellowshipName:'', position:'',churchAddress:'',camping:'' };
 
   // url = "https://docs.google.com/forms/d/e/1FAIpQLSdell5auLDTP1XN8X5JEBl7xSiWsSTjqXG770QEVp10kaDX8w/formResponse"
   //"https://docs.google.com/forms/u/0/d/e/1FAIpQLScmK2XtIn8PVXnnr0GtCzjajiL62m8ZyPNZovwLng_HqRrniA/formResponse"
   url="https://docs.google.com/forms/u/0/d/e/1FAIpQLScmK2XtIn8PVXnnr0GtCzjajiL62m8ZyPNZovwLng_HqRrniA/formResponse"
+
 
 constructor(private http: HttpClient, private fb:FormBuilder, private router: Router) {
   this.delegateForm = this.fb.group({
@@ -76,6 +78,15 @@ onNumberOfDelegateChange($event:any){
     this.delegateForm.markAllAsTouched(); // Show validation messages
   }
   }
+
+  onSelectionChange(event: any) {
+  const selectedValue = event.target.value;
+  if (selectedValue === 'Other Ministry') {
+    this.branchLabel = 'Church'
+  } else {
+    this.branchLabel = 'Branch';
+  }
+}
 
 
 

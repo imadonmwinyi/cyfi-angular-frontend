@@ -16,6 +16,8 @@ import { DohComponent } from './component/doh/doh.component';
 import { SpinnerComponent } from './component/spinner/spinner.component';
 import { RegistrationSummaryComponent } from './component/registration-summary/registration-summary.component';
 import { SuccessPageComponent } from './component/success-page/success-page.component';
+import { PbfRegistrationComponent } from './component/pbf-registration/pbf-registration.component';
+import { PbfRegistrationSummaryComponent } from './component/pbf-registration-summary/pbf-registration-summary.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { SuccessPageComponent } from './component/success-page/success-page.comp
     DohComponent,
     SpinnerComponent,
     RegistrationSummaryComponent,
-    SuccessPageComponent
+    SuccessPageComponent,
+    PbfRegistrationComponent,
+    PbfRegistrationSummaryComponent
   ],
   imports: [
     BrowserModule,

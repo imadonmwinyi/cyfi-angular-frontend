@@ -1,0 +1,103 @@
+<div class="bg-color">
+
+<app-navbar></app-navbar>
+<div class="container px-3 mg-80">
+<h2 class="">PAIN BEHIND THE FAME ONLINE REGISTRATION FORM</h2>
+  
+<div class="form-container">
+    <div class="w-100">
+        <label class="form-label">Select Number of Delegate</label>
+        <select class="form-select" [(ngModel)]="NumberOfdelegate" required 
+                (change)="onNumberOfDelegateChange($event)">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+        </select>
+        <hr>   
+    </div>
+<div>
+<form [formGroup]="delegateForm" >
+  <div formArrayName="delegates">
+    <div *ngFor="let delegate of delegates.controls; let i = index" [formGroupName]="i" class="delegate-form">
+      <div class="delegate-box">Delegate {{ i + 1 }}</div>
+      <div class="form-grid">
+        <div>
+          <label class="form-label">Full Name</label>
+          <input type="text" class="form-control" formControlName="fullname" name="fullname" required />
+          <div *ngIf="delegate.get('fullname')?.touched && delegate.get('fullname')?.errors">
+            <small *ngIf="delegate.get('fullname')?.errors?.['required']" class="text-danger">Full Name is required.</small>
+          </div>
+        </div>
+        <div>
+          <label class="form-label">Gender</label>
+           <select class="form-select" formControlName="gender" name="gender" required>
+                <option value="" disabled>Select Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select> 
+            <div *ngIf="delegate.get('gender')?.touched && delegate.get('gender')?.errors">
+            <small *ngIf="delegate.get('gender')?.errors?.['required']" class="text-danger">Gender is required.</small>
+          </div>      
+        </div>
+          <div>
+                <label class="form-label">Phone Number</label>
+                <input type="text" class="form-control" formControlName="phoneNumber" name="phoneNumber" required placeholder="e.g. 08012345678 or +2348012345678"/>
+                 <div *ngIf="delegate.get('phoneNumber')?.touched && delegate.get('phoneNumber')?.errors">
+                    <small *ngIf="delegate.get('phoneNumber')?.errors?.['required']" class="text-danger">Phone Number is required.</small>
+                     <small *ngIf="delegate.get('phoneNumber')?.errors?.['pattern']" class="text-danger">Enter a valid Nigerian phone number.</small>
+                </div> 
+          </div>
+         <div >
+            <label class="form-label">Province</label>
+            <select class="form-select" formControlName="province" required>
+                <option value="" disabled selected>Select your Province</option>
+                <option value="Uwelu">Uwelu</option>
+                <option value="Omozee">Omozee</option>
+                <option value="Ihinmwinrhin">Ihinmwinrhin</option>
+                <option value="International">International HQTR</option>
+                <option value="National">National HQTR</option>
+                <option value="Campus">Campus</option>
+                <option value="Other Ministry">Other Ministry</option>
+            </select>
+             <div *ngIf="delegate.get('province')?.touched && delegate.get('province')?.errors">
+                <small *ngIf="delegate.get('province')?.errors?.['required']" class="text-danger">Province is required.</small>
+             </div> 
+        </div>
+         <div>
+                <label class="form-label">Branch Name</label>
+                <input type="text" class="form-control" formControlName="branchName" name="branchName" required/>
+                <div *ngIf="delegate.get('branchName')?.touched && delegate.get('branchName')?.errors">
+                    <small *ngIf="delegate.get('branchName')?.errors?.['required']" class="text-danger">Branch Name is required.</small>
+                </div>
+        </div>
+        <div>
+                <label class="form-label">Position Held</label>
+                <input type="text" class="form-control" formControlName="position" name="position" required/>
+                <div *ngIf="delegate.get('position')?.touched && delegate.get('position')?.errors">
+                    <small *ngIf="delegate.get('position')?.errors?.['required']" class="text-danger">Position is required.</small>
+                </div>
+        </div>
+       </div>
+    </div>
+
+ </div>
+
+ 
+</form>
+    <div class="button-flex w-100 p-4">
+        <button type="submit" class="sm-button1 w-40" (click)="onSubmit()" >Register</button>
+    </div>
+</div>
+</div>  <!-- end of form container-->
+    
+</div>
+</div>
+<app-footer></app-footer>  
+<!-- <app-spinner [show]="isloading"></app-spinner> -->

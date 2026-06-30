@@ -53,25 +53,55 @@
   <h3>Payment Information</h3>
   <p>To complete your registration, please pay the total amount of {{ total | currency:'NGN':'symbol-narrow' }} to the following account:</p>
   <ul>
-    <li><strong>Account Name:</strong> Atoe Osavbie Prosper</li>
-    <li><strong>Account Number:</strong> 8146664681 </li>
-    <li><strong>Bank:</strong> Opay</li>
+    <li><strong>Account Name:</strong> {{ accountDetails?.accountName }}</li>
+    <li><strong>Account Number:</strong> {{ accountDetails?.AccountNumber }}</li>
+    <li><strong>Bank:</strong> {{ accountDetails?.bankName }}</li>
   </ul>
   <p>After payment, please upload your payment receipt below.</p>
 </div>
 <form [formGroup]="emailForm">
-  <div class="form-group">
-    <label for="email">Upload Payment Receipt</label>
-    <input type="file" (change)="onFileSelected($event)" id="paymentReceipt" formControlName="paymentReceipt" class="form-control" required [disabled]="isloading">
-    <div *ngIf="emailForm.get('paymentReceipt')?.invalid && (emailForm.get('paymentReceipt')?.dirty || emailForm.get('paymentReceipt')?.touched)" class="error">
-      <small *ngIf="emailForm.get('paymentReceipt')?.errors?.['required']" class="text-danger">Payment receipt is required.</small>
+  <div class="form-group custom-upload-container">
+    <label class="upload-label">Upload Payment Receipt</label>
+    
+    <!-- Hidden native file input -->
+    <input 
+      type="file" 
+      id="paymentReceipt" 
+      (change)="onFileSelected($event)" 
+      class="hidden-file-input" 
+      [disabled]="isloading"
+      accept="image/*,application/pdf">
+
+    <!-- Styled visual container acting as the clickable upload box -->
+    <label for="paymentReceipt" class="upload-box" [class.disabled]="isloading">
+      <div class="upload-content" *ngIf="!isloading">
+        <svg class="upload-icon" xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+        </svg>
+        <span class="upload-text">Click to choose a file or drag it here</span>
+        <span class="upload-hint">Supports PDF, PNG, JPG</span>
+      </div>
+
+      <!-- Loading / Uploading Sign -->
+      <div class="loading-content" *ngIf="isloading">
+        <div class="spinner"></div>
+        <span class="loading-text">Uploading receipt to server...</span>
+      </div>
+    </label>
+
+    <!-- Error Messages -->
+    <div *ngIf="emailForm.get('paymentReceipt')?.invalid && (emailForm.get('paymentReceipt')?.dirty || emailForm.get('paymentReceipt')?.touched)" class="error-container">
+      <small *ngIf="emailForm.get('paymentReceipt')?.errors?.['required']" class="text-danger">
+        Payment receipt is required.
+      </small>
     </div>
   </div>
 </form>
+
 <div class="w-100 py-4">
-  <button class="pay-button" (click)="submit()">
-     <span *ngIf="!isloading">Submit</span>
-     <span *ngIf="isloading">
+  <button class="pay-button" (click)="saveDelegates()">
+     <span *ngIf="!isSubmitting">Submit</span>
+     <span *ngIf="isSubmitting">
       <i class="spinner"></i> Processing...
      </span>
   </button>

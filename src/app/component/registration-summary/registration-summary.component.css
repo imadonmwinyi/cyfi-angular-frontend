@@ -89,6 +89,111 @@ h3 {
 }
 
 
+
+.custom-upload-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  font-family: sans-serif;
+}
+
+.upload-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+/* Hide the ugly standard browser file input completely */
+.hidden-file-input {
+  display: none !important;
+}
+
+/* Create the sleek drag/drop click box interface */
+.upload-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #cbd5e1;
+  border-radius: 8px;
+  padding: 24px;
+  background-color: #f8fafc;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.upload-box:hover:not(.disabled) {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+.upload-box.disabled {
+  cursor: not-allowed;
+  background-color: #f1f5f9;
+  border-color: #e2e8f0;
+}
+
+/* Inner elements formatting */
+.upload-content, .loading-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.upload-icon {
+  width: 40px;
+  height: 40px;
+  color: #64748b;
+  margin-bottom: 8px;
+}
+
+.upload-text {
+  font-size: 14px;
+  color: #1e293b;
+  font-weight: 500;
+}
+
+.upload-hint {
+  font-size: 12px;
+  color: #94a3b8;
+  margin-top: 4px;
+}
+
+/* Spinner CSS Animation */
+.spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e2e8f0;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+
+.loading-text {
+  font-size: 14px;
+  color: #3b82f6;
+  font-weight: 500;
+}
+
+.error-container {
+  margin-top: 6px;
+}
+
+.text-danger {
+  color: #ef4444;
+  font-size: 12px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+
+
 /* Responsive Rules */
 @media (max-width: 768px) {
   .desktop-table {

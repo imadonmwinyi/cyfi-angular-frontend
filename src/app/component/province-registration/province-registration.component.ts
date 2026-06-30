@@ -68,7 +68,7 @@ NumberOfdelegate = 1;
       if (this.delegateForm.valid) {
       console.log(this.delegateForm.value);
       this.router.navigate(['/summary'], {
-          state: { delegates: this.delegateForm.value.delegates }
+          state: { delegates: this.delegateForm.value.delegates, type: 'province' }
       });
     } else {
       this.delegateForm.markAllAsTouched(); // Show validation messages

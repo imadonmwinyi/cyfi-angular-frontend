@@ -74,13 +74,38 @@
 
     <!-- Styled visual container acting as the clickable upload box -->
     <label for="paymentReceipt" class="upload-box" [class.disabled]="isloading">
-      <div class="upload-content" *ngIf="!isloading">
+      
+      <!-- Upload Box Default State (Shown when not loading and NO preview is generated) -->
+      <div class="upload-content" *ngIf="!isloading && !imagePreviewUrl">
+        <!-- SVG Icon Visual Anchor -->
         <svg class="upload-icon" xmlns="http://w3.org" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
         </svg>
-        <span class="upload-text">Click to choose a file or drag it here</span>
+        <span class="upload-text">Drag and drop file here</span>
         <span class="upload-hint">Supports PDF, PNG, JPG</span>
+        
+        <!-- Explicit Upload Action Button -->
+        <div class="upload-action-btn">Choose File</div>
       </div>
+
+      <!-- Image Preview State (Shown when not loading and an image preview is ready) -->
+<div class="preview-content" *ngIf="!isloading && imagePreviewUrl">
+  <img [src]="imagePreviewUrl" alt="Receipt Preview" class="image-preview-thumbnail" />
+  
+  <!-- Container to hold both action buttons side-by-side -->
+  <div class="preview-actions">
+    <!-- Replace Button (Triggers file input because it's inside the label) -->
+    <div class="upload-action-btn secondary-btn">Replace File</div>
+    
+    <!-- Upload Button ($event.stopPropagation stops the native label click behavior) -->
+    <button 
+      type="button" 
+      class="upload-action-btn primary-submit-btn" 
+      (click)="submitReceipt($event)">
+      Upload Receipt
+    </button>
+  </div>
+</div>
 
       <!-- Loading / Uploading Sign -->
       <div class="loading-content" *ngIf="isloading">
@@ -97,6 +122,7 @@
     </div>
   </div>
 </form>
+
 
 <div class="w-100 py-4">
   <button class="pay-button" (click)="saveDelegates()">

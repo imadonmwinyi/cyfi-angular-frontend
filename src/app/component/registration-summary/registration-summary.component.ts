@@ -19,9 +19,9 @@ interface BankAccount {
 export class RegistrationSummaryComponent implements OnInit {
 baseUrl: string = 'https://api.cacgmcyfi.com/api/delegates';
  accounts: BankAccount[] = [
-    { accountName: 'Personal Savings', bankName: 'Chase Bank', AccountNumber: '1234567890', province: 'Ihinmwinrhin' },
-    { accountName: 'Business Checking', bankName: 'Wells Fargo', AccountNumber: '0987654321', province:'Omozee' },
-    { accountName: 'Emergency Fund', bankName: 'Bank of America', AccountNumber: '5566778899', province: 'Uwelu' }
+    { accountName: 'Esther Uhunmwangho', bankName: 'Access Bank', AccountNumber: '1840162826', province: 'Ihinmwinrhin' },
+    { accountName: 'Oghogho Blessing', bankName: 'PalmPay', AccountNumber: '9123426432', province:'Omozee' },
+    { accountName: 'Precious Oloyede', bankName: 'Opay', AccountNumber: '7046880128', province: 'Uwelu' }
   ];
 
   ngOnInit(): void {
@@ -59,6 +59,7 @@ baseUrl: string = 'https://api.cacgmcyfi.com/api/delegates';
   emailForm: FormGroup;
   uploadUrl: string | null = null;
   accountDetails: BankAccount | null = null;
+  imagePreviewUrl: string | null = null;
   /**
    *
    */
@@ -166,37 +167,80 @@ baseUrl: string = 'https://api.cacgmcyfi.com/api/delegates';
 // }
 
 
+onFileSelected(event: Event): void {
+    const element = event.currentTarget as HTMLInputElement;
+    const file: File | null = element.files ? element.files[0] : null;
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-    if (!file) return;
+    if (file) {
+      // 1. Update the reactive form value
+      this.emailForm.patchValue({ paymentReceipt: file });
+      this.emailForm.get('paymentReceipt')?.updateValueAndValidity();
 
-    // Start loading indicator
-    this.isloading = true;
+      // 2. Handle generating the visual image preview
+      if (file.type.startsWith('image/')) {
+        const reader = new FileReader();
+        reader.onload = () => {
+          this.imagePreviewUrl = reader.result as string; // Set data URL string
+        };
+        reader.readAsDataURL(file); // Convert file into a Data URL
+      } else {
+        // If the user selected a PDF, clear or set a PDF placeholder icon instead
+        this.imagePreviewUrl = null; 
+      }
+    }
+  }
 
-    const cloudName = 'dcjgdyu9i';
-    const uploadPreset = 'doh-reg-payment';
+submitReceipt(event: Event): void {
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('upload_preset', uploadPreset);
+  event.stopPropagation(); 
+  event.preventDefault();
 
-    fetch(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, {
-      method: 'POST',
-      body: formData
+  // Start loading indicator
+  this.isloading = true;
+
+  const cloudName = 'dcjgdyu9i';
+  const uploadPreset = 'doh-reg-payment';
+
+  const formData = new FormData();
+  const file = this.emailForm.get('paymentReceipt')?.value;
+  formData.append('file', file);
+  formData.append('upload_preset', uploadPreset);
+
+  fetch(`https://api.cloudinary.com/v1_1/${cloudName}/upload`, {
+    method: 'POST',
+    body: formData
+  })
+    .then(res => res.json())
+    .then(data => {
+      //console.log('Upload successful', data);
+      this.uploadUrl = data.secure_url;
+      this.isloading = false; // Turn off loading on success
+      this.imagePreviewUrl = null;
+      alert('Payment Receipt uploaded successfully! You can now submit your registration.');
     })
-      .then(res => res.json())
-      .then(data => {
-        console.log('Upload successful', data);
-        this.uploadUrl = data.secure_url;
-        this.isloading = false; // Turn off loading on success
-      })
-      .catch(err => {
-        console.error('Upload failed', err);
-        this.isloading = false; // Turn off loading on failure
-        // Reset the form control so the user can try uploading again
-        this.emailForm.get('paymentReceipt')?.reset();
-      });
+    .catch(err => {
+      //console.error('Upload failed', err);
+      this.isloading = false; // Turn off loading on failure
+      alert('Failed to upload Payment Receipt. Please try again.');
+
+      // Reset the form control so the user can try uploading again
+      this.emailForm.get('paymentReceipt')?.reset();
+    });
+
+
+ }
+
+
+  // onFileSelected(event: any) {
+  //   const file: File = event.target.files[0];
+  //   if (!file) return;
+
+  
+  // }
+
+  clearSelection(): void {
+    this.imagePreviewUrl = null;
+    this.emailForm.get('paymentReceipt')?.setValue(null);
   }
 
 

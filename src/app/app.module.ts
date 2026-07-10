@@ -19,6 +19,7 @@ import { SuccessPageComponent } from './component/success-page/success-page.comp
 import { PbfRegistrationComponent } from './component/pbf-registration/pbf-registration.component';
 import { PbfRegistrationSummaryComponent } from './component/pbf-registration-summary/pbf-registration-summary.component';
 import { ProvinceRegistrationComponent } from './component/province-registration/province-registration.component';
+import { RegistrationAdminComponent } from './component/registration-admin/registration-admin.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { ProvinceRegistrationComponent } from './component/province-registration
     SuccessPageComponent,
     PbfRegistrationComponent,
     PbfRegistrationSummaryComponent,
-    ProvinceRegistrationComponent
+    ProvinceRegistrationComponent,
+    RegistrationAdminComponent
   ],
   imports: [
     BrowserModule,

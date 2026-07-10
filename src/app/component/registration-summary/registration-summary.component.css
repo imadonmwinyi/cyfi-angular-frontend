@@ -186,6 +186,85 @@ h3 {
   font-size: 12px;
 }
 
+.preview-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  width: 100%;
+}
+
+.image-preview-thumbnail {
+  max-width: 100%;
+  max-height: 180px; /* Adjust based on your layout constraints */
+  object-fit: contain;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.change-photo-text {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+.upload-action-btn {
+  margin-top: 12px;
+  padding: 8px 16px;
+  background-color: #007bff; /* Primary theme color */
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  display: inline-block;
+}
+
+.upload-action-btn:hover {
+  background-color: #0056b3;
+}
+
+/* Secondary Button Style Used for the Image Preview State */
+.secondary-btn {
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 1px solid #ced4da;
+}
+
+.secondary-btn:hover {
+  background-color: #e2e6ea;
+}
+
+/* Ensure the parent box uses pointer cursor safely */
+.upload-box {
+  cursor: pointer;
+}
+.preview-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Primary Submit button override styling */
+.primary-submit-btn {
+  background-color: #28a745; /* Clean green success button color */
+  border: none;
+  margin-top: 0; /* Reset previous margin rules */
+}
+
+.primary-submit-btn:hover {
+  background-color: #218838;
+}
+
+/* Align secondary button rules */
+.preview-actions .secondary-btn {
+  margin-top: 0; /* Align perfectly with submit button height */
+}
+
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }

@@ -1,0 +1,83 @@
+<app-navbar></app-navbar>
+<div class="container">
+  <!-- Filter Dashboard -->
+  <div class="filter-dashboard">
+    <div class="form-group">
+      <label for="search">Search Name or Phone</label>
+      <input 
+        id="search"
+        type="text" 
+        [value]="searchQuery()" 
+        (input)="searchQuery.set($any($event.target).value)"
+        placeholder="Type to search..."
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="province">Province</label>
+      <select 
+        id="province"
+        [value]="selectedProvince()" 
+        (change)="selectedProvince.set($any($event.target).value)"
+      >
+        <option value="">All Provinces</option>
+        <option *ngFor="let province of provinces" [value]="province">
+          {{ province }}
+        </option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="program">Program Type</label>
+      <select 
+        id="program"
+        [value]="selectedProgramType()" 
+        (change)="selectedProgramType.set($any($event.target).value)"
+      >
+        <option value="">All Programs</option>
+        <option *ngFor="let type of programTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Responsive Table Wrapper -->
+  <div class="table-container">
+    <table class="responsive-table">
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Phone Number</th>
+          <th>Province</th>
+          <th>Branch</th>
+          <th>Program Type</th>
+          <th>Receipt</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Table rows render if data exists -->
+        <ng-container *ngIf="filteredRegistrations().length > 0; else emptyState">
+          <tr *ngFor="let row of filteredRegistrations();">
+            <td data-label="Full Name">{{ row.fullname }}</td>
+            <td data-label="Phone Number">{{ row.phoneNumber }}</td>
+            <td data-label="Province">{{ row.province }}</td>
+            <td data-label="Branch">{{ row.branchName }}</td>
+            <td data-label="Program Type">{{ row.programType }}</td>
+            <td data-label="Receipt">
+              <a [href]="row.paymentReceipt" target="_blank" class="btn-link">View Receipt</a>
+            </td>
+          </tr>
+        </ng-container>
+
+        <!-- Fallback template handles the empty array state -->
+        <ng-template #emptyState>
+          <tr>
+            <td colspan="6" class="no-data">No matching registrations found.</td>
+          </tr>
+        </ng-template>
+      </tbody>
+    </table>
+  </div>
+</div>
+<app-footer></app-footer>  

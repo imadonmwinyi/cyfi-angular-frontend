@@ -8,6 +8,7 @@ import { SuccessPageComponent } from './component/success-page/success-page.comp
 import { PbfRegistrationComponent } from './component/pbf-registration/pbf-registration.component';
 import { PbfRegistrationSummaryComponent } from './component/pbf-registration-summary/pbf-registration-summary.component';
 import { ProvinceRegistrationComponent } from './component/province-registration/province-registration.component';
+import { RegistrationAdminComponent } from './component/registration-admin/registration-admin.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -17,7 +18,8 @@ const routes: Routes = [
     { path: 'success', component: SuccessPageComponent },
     {path: 'pbf-registration', component:PbfRegistrationComponent },
     {path: 'summary-pbf-registration', component:PbfRegistrationSummaryComponent},
-    {path: 'province-registration', component:ProvinceRegistrationComponent}
+    {path: 'province-registration', component:ProvinceRegistrationComponent},
+    {path: 'admin', component:RegistrationAdminComponent}
   
 ];
 const config: ExtraOptions = {

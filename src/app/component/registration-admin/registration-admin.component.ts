@@ -1,6 +1,7 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, effect, signal } from '@angular/core';
 import { Delegate } from '../registration-summary/registration-summary.component';
 import { FormsModule } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration-admin',
@@ -10,7 +11,11 @@ import { FormsModule } from '@angular/forms';
 export class RegistrationAdminComponent {
 
 
+  constructor(private http: HttpClient) {
+    
+  }
 
+  baseUrl: string = 'https://api.cacgmcyfi.com/api/delegates';
   isModalOpen = false;
   selectedUser: Registration | null = null;
 
@@ -19,26 +24,28 @@ export class RegistrationAdminComponent {
   selectedProvince = signal<string>('');
   selectedProgramType = signal<string>('');
 
-provinces: string[] = ['Edo', 'Lagos', 'Abuja', 'Rivers'];
-  programTypes: string[] = ['Full-Time', 'Part-Time', 'Weekend Intensive', 'Online Certificate'];
+provinces: string[] = ['Uwelu', 'Omozee', 'Ihinmwinrhin'];
+programTypes: string[] = ['province', 'doh', 'pbf'];
 
   // Master Data Source
-  registrations = signal<Registration[]>([
-    { fullName: 'John Doe', phone: '+2348012345678', province: 'Edo', branch: 'Benin Main', programType: 'Full-Time', receiptUrl: 'https://placehold.co' },
-    { fullName: 'Jane Smith', phone: '+2348098765432', province: 'Lagos', branch: 'Ikeja', programType: 'Online Certificate', receiptUrl: 'https://placehold.co' },
-    { fullName: 'Amara Okafor', phone: '+2348122334455', province: 'Abuja', branch: 'Garki', programType: 'Weekend Intensive', receiptUrl: 'https://placehold.co' },
-    { fullName: 'David King', phone: '+2347055667788', province: 'Edo', branch: 'Uselu', programType: 'Part-Time', receiptUrl: 'https://placehold.co' }
-  ]);
+  registrations = signal<Registration[]>([]);
 
+  trackProvinceChange = effect(() => {
+    const province = this.selectedProvince();
+    if (province) {
+      // Angular tracking mechanism detects this read and executes this block 
+      // ONLY when the actual value of selectedProvince changes.
+      this.loadRegistrations(province);
+    }
+  });
     filteredRegistrations = computed(() => {
     const query = this.searchQuery().toLowerCase().trim();
     const province = this.selectedProvince();
     const program = this.selectedProgramType();
-
     return this.registrations().filter(user => {
       const matchText = !query || 
-        user.fullName.toLowerCase().includes(query) || 
-        user.phone.includes(query);
+        user.fullname.toLowerCase().includes(query) || 
+        user.phoneNumber.includes(query);
       
       const matchProvince = !province || user.province === province;
       const matchProgram = !program || user.programType === program;
@@ -64,6 +71,15 @@ provinces: string[] = ['Edo', 'Lagos', 'Abuja', 'Rivers'];
     this.selectedProgramType.set('');
   }
 
+  loadRegistrations(province: string): void {
+      this.http.get<Registration[]>(this.baseUrl + '?province=' + province).subscribe({
+      next: (data) => {
+        // Use .set() to completely replace the current signal value
+        this.registrations.set(data);
+      },
+      error: (err) => console.error('Failed to load registrations', err)
+    });
+  }
 
 
 
@@ -74,10 +90,13 @@ provinces: string[] = ['Edo', 'Lagos', 'Abuja', 'Rivers'];
 }
 
 interface Registration {
-  fullName: string;
-  phone: string;
+  fullname: string;
+  gender: string;
+  medical:string;
+  camping:string;
+  phoneNumber: string;
   province: string;
-  branch: string;
+  branchName: string;
   programType: string;
-  receiptUrl: string;
+  paymentReceipt: string;
 }

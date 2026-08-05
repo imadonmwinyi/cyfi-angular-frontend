@@ -49,9 +49,10 @@
         <tr>
           <th>Full Name</th>
           <th>Phone Number</th>
-          <th>Province</th>
+          <th>Gender</th>
+          <th>Camping</th>
           <th>Branch</th>
-          <th>Program Type</th>
+          <th>Medical</th>
           <th>Receipt</th>
         </tr>
       </thead>
@@ -61,9 +62,10 @@
           <tr *ngFor="let row of filteredRegistrations();">
             <td data-label="Full Name">{{ row.fullname }}</td>
             <td data-label="Phone Number">{{ row.phoneNumber }}</td>
-            <td data-label="Province">{{ row.province }}</td>
+            <td data-label="Gender">{{ row.gender }}</td>
+            <td data-label="Camping">{{ row.camping }}</td>
             <td data-label="Branch">{{ row.branchName }}</td>
-            <td data-label="Program Type">{{ row.programType }}</td>
+            <td data-label="Medical">{{ row.medical }}</td>
             <td data-label="Receipt">
               <a [href]="row.paymentReceipt" target="_blank" class="btn-link">View Receipt</a>
             </td>
